@@ -44,8 +44,22 @@ python3 scripts/generate_demo_pages.py
 python3 scripts/build_pitch_kits.py
 python3 scripts/validate_dashboard.py
 python3 scripts/free_port_server.py --start 8790
+python3 scripts/ollama_health.py
+python3 scripts/ollama_draft.py --lead glamor-medical --mode all
 ```
 
 ## Usage Saver policy
 
 Codex/GPT-5.5 is reserved for architecture, hard debugging, high-taste UI/product direction, and final review. Repeated demo generation, pitch kits, local validation, and server port selection should run through scripts first.
+
+## Ollama local AI commands
+
+These use local Ollama and do not spend Codex quota:
+
+```bash
+python3 scripts/ollama_health.py
+python3 scripts/ollama_draft.py --lead glamor-medical --mode all
+python3 scripts/ollama_draft.py --lead all --mode all
+```
+
+Outputs are saved in `local-ai-drafts/`. See `OLLAMA_LOCAL_WORKFLOW.md`.

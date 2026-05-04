@@ -11,9 +11,10 @@ const autos = JSON.parse(fs.readFileSync(path.join(root,'data','automations.json
 assert(html.includes('styles.css') && html.includes('app.js'), 'index does not load assets');
 assert(css.includes('@media(max-width:980px)'), 'missing responsive CSS');
 assert(css.includes('.usage-card') && css.includes('.quota-log'), 'missing usage saver CSS');
+assert(js.includes('qwen3.5:9b') && js.includes('ollama_draft.py'), 'missing Ollama local workflow wiring');
 assert(leads.length >= 10, 'expected at least 10 real leads');
 assert(leads.every(l=>l.business && l.industry && l.phone && l.score && l.weaknesses && l.offer), 'lead missing required fields');
 assert(autos.length === 8, 'automation catalog should have 8 items');
-['scripts/generate_demo_pages.py','scripts/build_pitch_kits.py','scripts/validate_dashboard.py','scripts/free_port_server.py'].forEach(rel=>assert(fs.existsSync(path.join(root, rel)), `missing script ${rel}`));
-['PROJECT_STATE.md','ENDLESS_USAGE_STRATEGY.md'].forEach(rel=>assert(fs.existsSync(path.join(root, rel)), `missing doc ${rel}`));
+['scripts/generate_demo_pages.py','scripts/build_pitch_kits.py','scripts/validate_dashboard.py','scripts/free_port_server.py','scripts/ollama_health.py','scripts/ollama_draft.py'].forEach(rel=>assert(fs.existsSync(path.join(root, rel)), `missing script ${rel}`));
+['PROJECT_STATE.md','ENDLESS_USAGE_STRATEGY.md','OLLAMA_LOCAL_WORKFLOW.md'].forEach(rel=>assert(fs.existsSync(path.join(root, rel)), `missing doc ${rel}`));
 console.log('All Stratos dashboard checks passed:', { leads: leads.length, automations: autos.length, usageSaver: true });

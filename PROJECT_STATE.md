@@ -27,3 +27,8 @@ Current app: Hermes-native static dashboard at `/Users/bradleydipaolo/stratos-ai
 
 ## Usage policy
 Use scripts for repeatable generation and validation. Reserve Codex/GPT-5.5 for architecture, complex debugging, and final review.
+
+## Local Ollama
+- Ollama is running on `127.0.0.1:11434` on Bradley's machine.
+- Installed models during implementation: `qwen3.5:9b`, `qwen2.5-coder:7b`.
+- Use `scripts/ollama_health.py` and `scripts/ollama_draft.py` for local cheap drafting without Codex quota.
