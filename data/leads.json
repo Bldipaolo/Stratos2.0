@@ -1,0 +1,212 @@
+[
+  {
+    "id": "glamor-medical",
+    "business": "Glamor Medical",
+    "industry": "Medspa",
+    "score": 92,
+    "phone": "561-990-8442",
+    "website": "https://glamormedical.com/",
+    "address": "7301 W. Palmetto Park Road, Suite 106B, Boca Raton, FL 33433",
+    "rating": 5.0,
+    "status": "new",
+    "weaknesses": [
+      "Booking flow can be made more premium and autonomous",
+      "High-ticket services deserve stronger conversion copy",
+      "No visible AI concierge for after-hours consult capture"
+    ],
+    "offer": "MedSpa Growth OS",
+    "angle": "AI consultation booking + review/social proof automation around XERF, injectables, lasers, and body contouring.",
+    "demo": "/demos/glamor-medical.html",
+    "estBookings": 9,
+    "avgValue": 525
+  },
+  {
+    "id": "ssf-detail",
+    "business": "SSF Detail",
+    "industry": "Auto",
+    "score": 91,
+    "phone": "561-299-4413",
+    "website": "https://ssfdetail.com/",
+    "address": "850 NW 1st Ave, Boca Raton, FL 33432",
+    "rating": 5.0,
+    "status": "new",
+    "weaknesses": [
+      "Premium positioning could be sharpened for executive/VIP customers",
+      "Lead capture should qualify vehicle type, urgency, and package",
+      "Review proof can be turned into conversion widgets"
+    ],
+    "offer": "VIP Detail Booking Engine",
+    "angle": "Concierge quote flow + executive member lead capture + review automation.",
+    "demo": "/demos/ssf-detail.html",
+    "estBookings": 7,
+    "avgValue": 420
+  },
+  {
+    "id": "dental-care-boca",
+    "business": "Dental Care of Boca Raton",
+    "industry": "Dental",
+    "score": 90,
+    "phone": "561-556-6275",
+    "website": "https://www.dentalcareofbocaraton.com/",
+    "address": "9690 Glades Road, Suite #430, Boca Raton, FL",
+    "rating": 5.0,
+    "status": "new",
+    "weaknesses": [
+      "Missed-call and insurance questions should be captured instantly",
+      "Specials need stronger landing pages",
+      "Large review base should be used more aggressively"
+    ],
+    "offer": "Dental Patient Capture OS",
+    "angle": "Missed-call text-back + Invisalign/implant landing pages + review engine.",
+    "demo": "/demos/dental-care-boca.html",
+    "estBookings": 11,
+    "avgValue": 650
+  },
+  {
+    "id": "elite-medical-spa",
+    "business": "Elite Medical SPA",
+    "industry": "Medspa",
+    "score": 88,
+    "phone": "954-456-4777",
+    "website": "",
+    "address": "Boca Raton / South Florida",
+    "rating": 4.8,
+    "status": "new",
+    "weaknesses": [
+      "Needs sharper offer segmentation",
+      "Lead nurturing can recover undecided consults",
+      "Gallery and social proof can work harder"
+    ],
+    "offer": "MedSpa Growth OS",
+    "angle": "Lead quiz + consult booking + post-visit review/referral loop.",
+    "demo": "/demos/elite-medical-spa.html",
+    "estBookings": 8,
+    "avgValue": 500
+  },
+  {
+    "id": "boca-dental",
+    "business": "Boca Dental",
+    "industry": "Dental",
+    "score": 88,
+    "phone": "561-391-6606",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.7,
+    "status": "new",
+    "weaknesses": [
+      "High-intent services need direct CTAs",
+      "Recall/reactivation automations can add revenue",
+      "Mobile conversion can improve"
+    ],
+    "offer": "Dental Patient Capture OS",
+    "angle": "Appointment funnel + reactivation texts + review requests.",
+    "demo": "/demos/boca-dental.html",
+    "estBookings": 8,
+    "avgValue": 600
+  },
+  {
+    "id": "roto-rooter-boca",
+    "business": "Roto-Rooter Boca Raton",
+    "industry": "Plumbing",
+    "score": 88,
+    "phone": "561-404-2187",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.6,
+    "status": "new",
+    "weaknesses": [
+      "Emergency intent needs instant response",
+      "Missed calls cost real jobs",
+      "Local landing pages can rank and convert better"
+    ],
+    "offer": "Emergency Service Capture OS",
+    "angle": "Missed-call text-back + emergency quote flow + local proof widgets.",
+    "demo": "/demos/roto-rooter-boca.html",
+    "estBookings": 14,
+    "avgValue": 350
+  },
+  {
+    "id": "better-me-medical-spa",
+    "business": "Better Me Medical Spa",
+    "industry": "Medspa",
+    "score": 89,
+    "phone": "561-759-7250",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.9,
+    "status": "new",
+    "weaknesses": [
+      "Needs stronger premium treatment pages",
+      "No obvious automated follow-up sequence",
+      "Consult capture can be more personalized"
+    ],
+    "offer": "MedSpa Growth OS",
+    "angle": "AI consult matching + treatment follow-up + review/referral automation.",
+    "demo": "/demos/better-me.html",
+    "estBookings": 9,
+    "avgValue": 475
+  },
+  {
+    "id": "boca-med-spa",
+    "business": "Boca Med Spa",
+    "industry": "Medspa",
+    "score": 87,
+    "phone": "561-447-2240",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.7,
+    "status": "new",
+    "weaknesses": [
+      "Traffic should route to high-margin services",
+      "Lead form needs qualification",
+      "Before/after proof should be structured"
+    ],
+    "offer": "MedSpa Growth OS",
+    "angle": "High-ticket service funnel + AI booking assistant.",
+    "demo": "/demos/boca-med-spa.html",
+    "estBookings": 7,
+    "avgValue": 500
+  },
+  {
+    "id": "berman-law",
+    "business": "Berman Law Group",
+    "industry": "Legal",
+    "score": 87,
+    "phone": "561-861-1818",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.6,
+    "status": "new",
+    "weaknesses": [
+      "Urgent case intake should be clearer",
+      "Lead qualification can reduce admin drag",
+      "Trust signals can be sequenced better"
+    ],
+    "offer": "Legal Intake Command",
+    "angle": "Case evaluation intake + follow-up workflow + urgency-first landing pages.",
+    "demo": "/demos/berman-law.html",
+    "estBookings": 5,
+    "avgValue": 1200
+  },
+  {
+    "id": "mechanical-air",
+    "business": "Mechanical Air Conditioning",
+    "industry": "HVAC",
+    "score": 87,
+    "phone": "561-848-6227",
+    "website": "",
+    "address": "Boca Raton, FL",
+    "rating": 4.6,
+    "status": "new",
+    "weaknesses": [
+      "Seasonal demand needs capture automation",
+      "Emergency calls need instant SMS recovery",
+      "Maintenance plans need clearer funnel"
+    ],
+    "offer": "Home Service Capture OS",
+    "angle": "Emergency booking + estimate flow + maintenance plan nurture.",
+    "demo": "/demos/mechanical-air.html",
+    "estBookings": 12,
+    "avgValue": 425
+  }
+]

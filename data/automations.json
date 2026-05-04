@@ -1,0 +1,50 @@
+[
+  {
+    "name": "AI Lead Capture Chatbot",
+    "category": "Lead Gen",
+    "price": 450,
+    "desc": "Qualifies visitors 24/7 and books consultations automatically."
+  },
+  {
+    "name": "Smart Review Request Engine",
+    "category": "Review",
+    "price": 350,
+    "desc": "Requests reviews after appointments via SMS/email."
+  },
+  {
+    "name": "Dynamic Follow-Up Sequences",
+    "category": "Follow Up",
+    "price": 400,
+    "desc": "Behavior-based email/SMS nurture after site visits and form starts."
+  },
+  {
+    "name": "One-Click Booking System",
+    "category": "Booking",
+    "price": 300,
+    "desc": "Calendar booking with reminders and confirmations."
+  },
+  {
+    "name": "Missed-Call Text-Back Bot",
+    "category": "Lead Gen",
+    "price": 250,
+    "desc": "Instantly texts missed callers with booking links."
+  },
+  {
+    "name": "Social Proof Widget",
+    "category": "CRM",
+    "price": 200,
+    "desc": "Displays recent reviews, conversions, and wins on the site."
+  },
+  {
+    "name": "Referral Loop Automation",
+    "category": "Custom",
+    "price": 350,
+    "desc": "Encourages and tracks client referrals with reward logic."
+  },
+  {
+    "name": "Win-Back Campaign",
+    "category": "Follow Up",
+    "price": 300,
+    "desc": "Re-engages dormant leads with targeted offers."
+  }
+]
