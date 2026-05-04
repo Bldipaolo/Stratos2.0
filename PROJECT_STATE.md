@@ -1,0 +1,29 @@
+# Stratos AI Command Center — Project State
+
+Current app: Hermes-native static dashboard at `/Users/bradleydipaolo/stratos-ai/hermes-command-center`.
+
+## Current modules
+- Boca Lead War Room
+- Hyper-Specific Demo Sites
+- One-Click Outreach Packs
+- Audit → Demo → Pitch
+- MedSpa Domination Pack
+- Revenue Forecast Simulator
+- Morning Briefing
+- Proof Vault
+- Public Portfolio Page
+- Client Close Room
+- Usage Saver
+
+## Data
+- `data/leads.json`: seeded Boca-area leads. Static, not yet live-scraped.
+- `data/automations.json`: Stratos automation catalog.
+
+## Zero-model scripts
+- `scripts/generate_demo_pages.py` — rebuild all demo pages from `data/leads.json`.
+- `scripts/build_pitch_kits.py` — generate Markdown outreach kits in `pitch-kits/`.
+- `scripts/validate_dashboard.py` — deterministic validation.
+- `scripts/free_port_server.py --start 8790` — run local static server on first free port.
+
+## Usage policy
+Use scripts for repeatable generation and validation. Reserve Codex/GPT-5.5 for architecture, complex debugging, and final review.

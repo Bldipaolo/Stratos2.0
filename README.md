@@ -6,10 +6,10 @@ A new ClawPort-free, Hermes-native static dashboard for Stratos AI.
 
 ```bash
 cd /Users/bradleydipaolo/stratos-ai/hermes-command-center
-python3 -m http.server 8787
+python3 -m http.server 8790
 ```
 
-Open: http://localhost:8787
+Open: http://localhost:8790
 
 ## Modules, in descending importance
 
@@ -23,6 +23,7 @@ Open: http://localhost:8787
 8. Proof Vault
 9. Public Portfolio Page
 10. Client Close Room
+11. Usage Saver
 
 ## Data
 
@@ -32,3 +33,19 @@ Open: http://localhost:8787
 ## Design posture
 
 Modeled after the useful parts of ClawPort — command-center density, sidebar navigation, modular pages — but not dependent on ClawPort/OpenClaw code, packages, or gateway assumptions.
+
+
+## Zero-model commands
+
+These run locally and do not spend Codex quota:
+
+```bash
+python3 scripts/generate_demo_pages.py
+python3 scripts/build_pitch_kits.py
+python3 scripts/validate_dashboard.py
+python3 scripts/free_port_server.py --start 8790
+```
+
+## Usage Saver policy
+
+Codex/GPT-5.5 is reserved for architecture, hard debugging, high-taste UI/product direction, and final review. Repeated demo generation, pitch kits, local validation, and server port selection should run through scripts first.
