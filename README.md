@@ -63,3 +63,13 @@ python3 scripts/ollama_draft.py --lead all --mode all
 ```
 
 Outputs are saved in `local-ai-drafts/`. See `OLLAMA_LOCAL_WORKFLOW.md`.
+
+## Hermes local profile
+
+A separate local Hermes profile is configured for Ollama:
+
+```bash
+hermes -p stratos-local chat -t terminal,file -q "Draft three Stratos outreach variants for Glamor Medical and save them under local-ai-drafts/."
+```
+
+Use this for local/cheap drafts and summaries. Keep the default Codex profile for premium architecture, hard debugging, and final review. See `HERMES_LOCAL_PROFILE.md`.

@@ -43,24 +43,24 @@ Outputs go to `local-ai-drafts/`.
 
 ## Optional Hermes local profile
 
-Hermes can be pointed at an OpenAI-compatible local endpoint if/when you want a separate profile. Do not switch the default until tested.
-
-Suggested future path:
+A separate Hermes profile is already configured and verified:
 
 ```bash
-hermes profile create stratos-local --clone
+hermes -p stratos-local chat -Q -t terminal,file --max-turns 3 -q 'Reply with exactly: STRATOS LOCAL ONLINE'
 ```
 
-Then use `hermes model` inside that profile, or configure a custom OpenAI-compatible endpoint for:
+Profile config path:
 
 ```text
-http://127.0.0.1:11434/v1
+/Users/bradleydipaolo/.hermes/profiles/stratos-local/config.yaml
 ```
 
-Model:
+It uses:
 
 ```text
-qwen3.5:9b
+provider: ollama-local
+base_url: http://127.0.0.1:11434/v1
+model: qwen3.5:9b
 ```
 
-Keep the normal/default profile on Codex for premium review until the local profile is verified.
+Keep the normal/default profile on Codex for premium review.
