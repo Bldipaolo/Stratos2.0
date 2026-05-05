@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Stratos-App",
+          "value": "Hermes Command Center"
+        }
+      ]
+    }
+  ]
+}

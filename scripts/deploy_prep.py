@@ -10,8 +10,11 @@ for folder in ['.', 'data', 'demos', 'pitch-kits', 'public-site', 'close-rooms',
     if not base.exists():
         continue
     for p in base.rglob('*'):
-        if p.is_file() and '.git' not in p.parts:
-            assets.append(str(p.relative_to(ROOT)))
+        rel = p.relative_to(ROOT)
+        ignored_parts = {'.git', 'dist', '__pycache__', '.vercel'}
+        ignored_names = {'.DS_Store'}
+        if p.is_file() and not (ignored_parts & set(rel.parts)) and p.name not in ignored_names:
+            assets.append(str(rel))
 manifest={
     'name':'Stratos AI Hermes Command Center',
     'generatedAt':time.strftime('%Y-%m-%dT%H:%M:%S'),

@@ -1,15 +1,16 @@
 {
   "name": "Stratos AI Hermes Command Center",
-  "generatedAt": "2026-05-05T19:08:01",
+  "generatedAt": "2026-05-05T19:22:10",
   "entrypoints": [
     "index.html",
     "public-site/index.html"
   ],
-  "assetCount": 95,
+  "assetCount": 97,
   "assets": [
     ".gitignore",
     "DEPLOYMENT_CHECKLIST.md",
     "ENDLESS_USAGE_STRATEGY.md",
+    "GITHUB_SETUP.md",
     "HERMES_LOCAL_PROFILE.md",
     "OLLAMA_LOCAL_WORKFLOW.md",
     "PROJECT_STATE.md",
@@ -101,7 +102,8 @@
     "scripts/run_all.py",
     "scripts/validate_dashboard.py",
     "styles.css",
-    "test-dashboard.js"
+    "test-dashboard.js",
+    "vercel.json"
   ],
   "deployNotes": [
     "Static/Vercel-friendly: no server required for dashboard/public site.",
