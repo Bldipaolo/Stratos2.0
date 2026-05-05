@@ -3,6 +3,7 @@
 Current app: Hermes-native static dashboard at `/Users/bradleydipaolo/stratos-ai/hermes-command-center`.
 
 ## Current modules
+- Strategy OS
 - Boca Lead War Room
 - Hyper-Specific Demo Sites
 - One-Click Outreach Packs
@@ -38,3 +39,14 @@ Use scripts for repeatable generation and validation. Reserve Codex/GPT-5.5 for 
 - Default model for that profile: `qwen3.5:9b`; coder model available via `-m qwen2.5-coder:7b`.
 - Verified command: `hermes -p stratos-local chat -Q -t terminal,file --max-turns 3 -q 'Reply with exactly: STRATOS LOCAL ONLINE'`.
 - Default Hermes profile remains Codex/GPT-5.5 for premium review.
+
+
+## Integrated assets
+- `public-site/index.html`: generated static public Stratos website.
+- `close-rooms/*.html`: generated private proposal rooms for every lead.
+- `briefings/latest.md`: deterministic morning briefing.
+- `dist/stratos-site-manifest.json`: deploy-prep manifest.
+- `STRATOS_OPERATING_SYSTEM.md`, `STRATOS_RUNBOOK.md`, `DEPLOYMENT_CHECKLIST.md`: strategy/run/deploy docs.
+
+## Full rebuild command
+Run `python3 scripts/run_all.py` to regenerate demos, pitch kits, close rooms, public website, briefing, deploy manifest, and validations.

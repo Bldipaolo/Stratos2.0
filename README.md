@@ -13,6 +13,7 @@ Open: http://localhost:8790
 
 ## Modules, in descending importance
 
+0. Strategy OS
 1. Boca Lead War Room
 2. Hyper-Specific Demo Sites
 3. One-Click Outreach Packs
@@ -73,3 +74,35 @@ hermes -p stratos-local chat -t terminal,file -q "Draft three Stratos outreach v
 ```
 
 Use this for local/cheap drafts and summaries. Keep the default Codex profile for premium architecture, hard debugging, and final review. See `HERMES_LOCAL_PROFILE.md`.
+
+
+## Full integrated rebuild
+
+Run the entire zero-model build/test pipeline:
+
+```bash
+python3 scripts/run_all.py
+```
+
+This regenerates:
+
+- `demos/*.html`
+- `pitch-kits/*.md`
+- `close-rooms/*.html`
+- `public-site/index.html`
+- `briefings/latest.md`
+- `dist/stratos-site-manifest.json`
+
+## Integrated strategy docs
+
+- `STRATOS_OPERATING_SYSTEM.md` — the agency operating system.
+- `STRATOS_RUNBOOK.md` — daily commands and operator workflow.
+- `DEPLOYMENT_CHECKLIST.md` — static/Vercel deployment checklist.
+
+## Main URLs after serving locally
+
+- Command Center: `http://localhost:8790`
+- Strategy OS: `http://localhost:8790/#strategy`
+- Usage Saver: `http://localhost:8790/#usage`
+- Public site: `http://localhost:8790/public-site/index.html`
+- Example close room: `http://localhost:8790/close-rooms/glamor-medical.html`
