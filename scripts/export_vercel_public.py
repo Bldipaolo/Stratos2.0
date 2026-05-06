@@ -23,6 +23,7 @@ INCLUDE_DIRS = [
     'briefings',
     'dist',
     'marketing-assets/gpt-image-2-oauth',
+    'marketing-assets/stratos-gpt2-premium-content-series',
 ]
 IGNORE_NAMES = {'.DS_Store'}
 IGNORE_PARTS = {'.git', '__pycache__', '.vercel'}

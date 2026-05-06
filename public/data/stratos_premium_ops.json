@@ -158,7 +158,7 @@
     ]
   },
   "higgsfieldStudio": {
-    "currentStatus": "GPT Image 2 OAuth route is now configured and verified through Hermes openai-codex. Higgsfield remains explicit blocker: authenticated free plan, 0 credits. Stratos can generate GPT Image 2 source/key art without an OpenAI API key; latest run shipped 3 medium renders before the Plus usage limit paused further generation.",
+    "currentStatus": "GPT Image 2 OAuth is now the primary Stratos premium creative route through Hermes openai-codex. Latest batch added 6 new source renders and rebuilt a full premium content series with local exact Stratos overlays: 30 feed posts, 12 stories, 20 carousel slides, and 6 motion covers. Higgsfield remains credit-blocked and reserved for future video/Marketing Studio. Higgsfield explicit status: authenticated free plan, 0 credits.",
     "bestUseWhenCreditsReturn": [
       "Use GPT Image 2 OAuth first for static key art; reserve Higgsfield credits for video/Marketing Studio only.",
       "Generate fewer stronger backgrounds, then locally composite Stratos typography and CTAs.",
@@ -166,6 +166,12 @@
       "Keep source images, final compositions, prompts, and QA notes together in marketing-assets/gpt-image-2-oauth/."
     ],
     "modelPlan": [
+      {
+        "asset": "Premium content series source art",
+        "model": "gpt-image-2-medium via openai-codex OAuth",
+        "format": "1:1 + 9:16",
+        "post": "30 feed, 12 stories, 20 carousel slides, 6 motion covers with exact local overlays"
+      },
       {
         "asset": "Command room hero key art",
         "model": "gpt-image-2-medium via openai-codex OAuth",
@@ -177,12 +183,6 @@
         "model": "gpt-image-2-medium via openai-codex OAuth",
         "format": "9:16",
         "post": "local story/close-room cover overlay"
-      },
-      {
-        "asset": "Disconnected systems brand visual",
-        "model": "gpt-image-2-medium via openai-codex OAuth",
-        "format": "1:1",
-        "post": "local carousel/feed overlay"
       },
       {
         "asset": "UGC/video concepts",
@@ -217,8 +217,8 @@
       "status": "shipped",
       "provider": "openai-codex",
       "model": "gpt-image-2-medium",
-      "successfulRenders": 3,
-      "usageLimitNote": "A fourth medium render hit usage_limit_reached on the Plus/Codex account; continue after reset.",
+      "successfulRenders": 9,
+      "usageLimitNote": "9 GPT Image 2 OAuth renders shipped total: 3 original premium key-art renders plus 6 new content-series source renders. Final campaign text/logo is locally composited for exact Stratos quality.",
       "gallery": "./marketing-assets/gpt-image-2-oauth/index.html",
       "runbook": "./PREMIUM_GPT_IMAGE_2_OAUTH_ASSETS.md",
       "assets": [
@@ -238,12 +238,26 @@
           "use": "flagship brand ad, carousel opener"
         }
       ]
+    },
+    "contentSeries": {
+      "status": "shipped",
+      "provider": "openai-codex",
+      "model": "gpt-image-2-medium",
+      "sourceRenders": 6,
+      "feedPosts": 30,
+      "stories": 12,
+      "carouselSlides": 20,
+      "videos": 6,
+      "gallery": "./marketing-assets/stratos-gpt2-premium-content-series/index.html",
+      "zip": "./marketing-assets/stratos-gpt2-premium-content-series.zip",
+      "manifest": "./marketing-assets/stratos-gpt2-premium-content-series/manifest.json",
+      "preview": "./marketing-assets/stratos-gpt2-premium-content-series/PREVIEW_CONTACT_SHEET.jpg"
     }
   },
   "repoAuditFindings": [
     "The project has strong static/Vercel bones: data, demos, close rooms, pitch kits, public export, usage saver, and cron-ready docs.",
     "The weakest area is perceived premium quality: too many surfaces describe systems instead of showing polished boardroom-grade flows.",
     "The next quality jump should be fewer better modules, stronger visual hierarchy, and proof/creative operations that enforce QA before assets ship.",
-    "Higgsfield remains credit-blocked, but GPT Image 2 OAuth is now verified and shipped as a premium static creative path without a paid OpenAI API key."
+    "GPT Image 2 OAuth is now verified beyond isolated key art: the repo contains a full premium content-series rebuild with generated source imagery, local exact overlays, QA, packaging, and public export wiring."
   ]
 }

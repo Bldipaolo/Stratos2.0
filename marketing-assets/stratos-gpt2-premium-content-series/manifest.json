@@ -1,0 +1,36 @@
+{
+  "name": "Stratos GPT Image 2 Premium Content Series",
+  "source_model": "gpt-image-2-medium via Hermes image_generate/openai-codex OAuth",
+  "generated_source_renders": 6,
+  "feed_posts": 30,
+  "stories": 12,
+  "carousel_slides": 20,
+  "videos": 6,
+  "final_type": "local deterministic overlays for exact Stratos typography",
+  "source_files": [
+    {
+      "file": "front-office-command-room.png",
+      "concept": "Front Office Command Room"
+    },
+    {
+      "file": "large-firm-handoffs.png",
+      "concept": "Large Firm Handoff Map"
+    },
+    {
+      "file": "disconnected-tools-revenue-leak.png",
+      "concept": "Disconnected Systems"
+    },
+    {
+      "file": "medspa-after-hours-concierge.png",
+      "concept": "Medspa Concierge"
+    },
+    {
+      "file": "executive-response-dashboard.png",
+      "concept": "Outcome Dashboard"
+    },
+    {
+      "file": "chaos-to-clean-workflow.png",
+      "concept": "Chaos To Clean Workflow"
+    }
+  ]
+}

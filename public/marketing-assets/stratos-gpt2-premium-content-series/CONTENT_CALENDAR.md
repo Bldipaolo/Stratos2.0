@@ -1,0 +1,32 @@
+# 30-Day Premium Stratos Content Calendar
+
+- Day 01: Your website should act like your best operator. — SYSTEMS
+- Day 02: Large firms lose money in tiny handoffs. — ENTERPRISE FRICTION
+- Day 03: Disconnected tools leak revenue. — INTEGRATION
+- Day 04: Consult intent should not wait until morning. — MEDSPA
+- Day 05: Less dashboard. More booked calls. — OUTCOMES
+- Day 06: Turn chaos into one clean workflow. — WORKFLOW
+- Day 07: Speed is a brand asset. — FOLLOW-UP
+- Day 08: Your CRM is not the strategy. — CRM
+- Day 09: A premium firm needs premium intake. — INTAKE
+- Day 10: Missed calls should trigger movement. — LOCAL SERVICES
+- Day 11: Stop buying traffic for a broken system. — CONVERSION
+- Day 12: AI should disappear into the workflow. — AUTOMATION
+- Day 13: Every lead deserves a next step. — LEAD OPS
+- Day 14: Make the business easier to buy from. — CLARITY
+- Day 15: The best automations feel human. — HUMAN AI
+- Day 16: Modernize before the market notices. — ADVANTAGE
+- Day 17: If the team is busy, the system should still sell. — OPERATIONS
+- Day 18: Your site should qualify, not just impress. — WEBSITES
+- Day 19: One clean path beats ten scattered buttons. — UX
+- Day 20: Follow-up is where premium brands separate. — SALES
+- Day 21: Outdated intake makes big firms look small. — LARGE FIRMS
+- Day 22: Your best employee should not be the only system. — PROCESS
+- Day 23: Make the invisible measurable. — METRICS
+- Day 24: Your online presence should feel expensive. — BRAND
+- Day 25: Integrate before adding more tools. — STACK
+- Day 26: The agency is not selling websites. — STRATOS
+- Day 27: Turn interest into scheduled action. — BOOKING
+- Day 28: Local businesses deserve enterprise systems. — LOCAL
+- Day 29: The buyer journey should not depend on office hours. — 24/7
+- Day 30: Build the system customers feel. — CLOSE
