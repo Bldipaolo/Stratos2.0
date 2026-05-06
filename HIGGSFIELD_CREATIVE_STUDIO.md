@@ -1,6 +1,6 @@
 # Stratos Higgsfield Creative Studio
 
-Status from latest local check: Higgsfield CLI is installed and authenticated, but the account is currently on the free plan with **0 credits**. That means I cannot honestly generate new Higgsfield images/videos right now. This file is the ready-to-run studio plan for when credits are available.
+Status update: Higgsfield CLI is still authenticated but credit-blocked on the free plan. The new preferred static-image path is **GPT Image 2 through Hermes `openai-codex` OAuth**, which avoids a paid OpenAI API key. Latest run shipped 3 medium GPT Image 2 source renders into `marketing-assets/gpt-image-2-oauth/` before the Plus/Codex usage limit paused further generation.
 
 ## Quality rules
 
@@ -9,6 +9,15 @@ Status from latest local check: Higgsfield CLI is installed and authenticated, b
 3. Inspect every generated result before publishing.
 4. Reject warped text, fake UI labels, malformed objects, repeated blobs, and tiny unreadable copy.
 5. Prefer 4 excellent assets over 40 mediocre templates.
+
+## GPT Image 2 OAuth pack now shipped
+
+- Runbook: `PREMIUM_GPT_IMAGE_2_OAUTH_ASSETS.md`
+- Gallery: `marketing-assets/gpt-image-2-oauth/index.html`
+- Source images: `marketing-assets/gpt-image-2-oauth/source/`
+- Public export: `public/marketing-assets/gpt-image-2-oauth/`
+
+Use this path for premium static key art before spending Higgsfield credits. Keep Higgsfield focused on video, UGC, and Marketing Studio once credits are available.
 
 ## Bootstrap
 
