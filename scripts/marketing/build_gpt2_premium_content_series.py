@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Build Stratos premium GPT Image 2 OAuth content series with exact local overlays."""
+"""Build Stratos premium GPT Image 2 OAuth content series with exact local overlays.
+
+Quality pass rules:
+- Brand palette only: background #041C44 / #00167A, accent #00AEEF / #0081CC, text #FFFFFF.
+- No visible day numbers on generated posts/stories/carousels/reels.
+- Text boxes are sized from measured text bounds to avoid overlap.
+"""
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
-import json, re, textwrap, zipfile, shutil, math
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance, ImageOps
+import json, re, textwrap, zipfile, math
 import numpy as np
 import imageio.v2 as imageio
 
@@ -17,33 +23,69 @@ VIDEOS = PACK / 'videos'
 for d in [FEED, STORIES, CAROUSELS, VIDEOS]:
     d.mkdir(parents=True, exist_ok=True)
 
-BLACK=(3,6,5); INK=(10,16,13); GREEN=(20,88,56); GREEN2=(36,126,79); GREEN3=(85,174,116)
-WHITE=(248,250,246); CREAM=(238,240,232); MUTED=(184,198,188); GOLD=(211,199,160)
+# User-requested Stratos palette.
+NAVY=(4,28,68)       # #041C44
+BLUE=(0,22,122)      # #00167A
+CYAN=(0,174,239)     # #00AEEF
+CYAN2=(0,129,204)    # #0081CC
+WHITE=(255,255,255)  # #FFFFFF
 FONT='/System/Library/Fonts/Supplemental/Arial.ttf'
 BOLD='/System/Library/Fonts/Supplemental/Arial Bold.ttf'
+
 
 def font(size,b=False):
     return ImageFont.truetype(BOLD if b else FONT,size)
 
+
 def slug(s):
     return re.sub(r'[^a-z0-9]+','-',s.lower()).strip('-')[:62]
 
-def wrap(s,w):
-    return '\n'.join(textwrap.wrap(s,w,break_long_words=False))
 
-def txt(d,xy,s,size,fill=WHITE,b=False,anchor=None,spacing=8,align='left'):
-    d.multiline_text(xy,s,font=font(size,b),fill=fill,anchor=anchor,spacing=spacing,align=align)
+def wrap_text(s, chars):
+    return '\n'.join(textwrap.wrap(s, chars, break_long_words=False))
 
-def rr(d,box,r,fill,outline=None,width=1):
-    d.rounded_rectangle(box,radius=r,fill=fill,outline=outline,width=width)
 
-def logo(d,x,y,scale=1.0,dark=True):
-    mark=int(56*scale)
-    rr(d,(x,y,x+mark,y+mark),16,fill=GREEN2,outline=GREEN3,width=max(1,int(2*scale)))
-    txt(d,(x+mark/2,y+mark/2-1),'S',int(32*scale),WHITE,True,'mm')
-    fill=WHITE if dark else INK
-    txt(d,(x+mark+16,y+1),'STRATOS AI',int(26*scale),fill,True)
-    txt(d,(x+mark+18,y+34),'WEBSITES • AUTOMATION • REVENUE',int(10*scale),GREEN3 if dark else GREEN,True)
+def text_box(draw, text, fnt, spacing=8):
+    if not text:
+        return (0,0,0,0)
+    return draw.multiline_textbbox((0,0), text, font=fnt, spacing=spacing)
+
+
+def text_size(draw, text, fnt, spacing=8):
+    b=text_box(draw,text,fnt,spacing)
+    return b[2]-b[0], b[3]-b[1]
+
+
+def fit_wrapped(draw, text, max_w, max_h, start_size, min_size, bold=True, max_chars=28, spacing_ratio=.13):
+    """Return (wrapped, size, spacing) that fits measured width/height."""
+    for size in range(start_size, min_size-1, -2):
+        avg=max(8, size*.50)
+        chars=max(9, min(max_chars, int(max_w/avg)))
+        wrapped=wrap_text(text, chars)
+        spacing=max(4, int(size*spacing_ratio))
+        w,h=text_size(draw, wrapped, font(size,bold), spacing)
+        if w <= max_w and h <= max_h:
+            return wrapped, size, spacing
+    size=min_size
+    chars=max(8, int(max_w/(size*.55)))
+    return wrap_text(text, chars), size, max(4,int(size*spacing_ratio))
+
+
+def draw_text(draw, xy, text, size, fill=WHITE, bold=False, anchor=None, spacing=8, align='left'):
+    draw.multiline_text(xy, text, font=font(size,bold), fill=fill, anchor=anchor, spacing=spacing, align=align)
+
+
+def rr(draw, box, radius, fill, outline=None, width=1):
+    draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
+
+
+def logo(draw, x, y, scale=1.0):
+    mark=int(58*scale)
+    rr(draw, (x,y,x+mark,y+mark), int(16*scale), fill=CYAN2, outline=CYAN, width=max(2,int(2*scale)))
+    draw_text(draw, (x+mark/2,y+mark/2-1), 'S', int(32*scale), WHITE, True, 'mm')
+    draw_text(draw, (x+mark+16,y+1), 'STRATOS AI', int(26*scale), WHITE, True)
+    draw_text(draw, (x+mark+18,y+34), 'WEBSITES • AUTOMATION • REVENUE', int(10*scale), WHITE, True)
+
 
 def cover_image(src, size, crop='center'):
     im=Image.open(src).convert('RGB')
@@ -57,25 +99,72 @@ def cover_image(src, size, crop='center'):
     x=(nw-tw)//2
     return im.crop((x,y,x+tw,y+th)).convert('RGBA')
 
-def grade(im, darken=120, blur=0.25):
-    im=ImageEnhance.Color(im).enhance(.82)
-    im=ImageEnhance.Contrast(im).enhance(1.08)
-    if blur: im=im.filter(ImageFilter.GaussianBlur(blur))
-    overlay=Image.new('RGBA', im.size, (0,0,0,darken))
-    return Image.alpha_composite(im.convert('RGBA'), overlay)
 
-def panel(d, box, alpha=190, light=False):
-    fill=(248,250,246,226) if light else (0,0,0,alpha)
-    rr(d,box,38,fill=fill,outline=(85,174,116,72),width=2)
+def blue_grade(im, darken=138, blur=.16):
+    """Recolor GPT source art into the approved blue/cyan/white visual system."""
+    if blur:
+        im=im.filter(ImageFilter.GaussianBlur(blur))
+    # Convert source art to luminance and remap it into the requested palette family.
+    # This removes green/cream/gray drift while preserving the premium scene structure.
+    gray=ImageOps.grayscale(im)
+    arr=np.array(gray)
+    rgb=np.zeros((arr.shape[0],arr.shape[1],3),dtype=np.uint8)
+    rgb[arr < 72]=NAVY
+    rgb[(arr >= 72) & (arr < 150)]=BLUE
+    rgb[(arr >= 150) & (arr < 214)]=CYAN2
+    rgb[arr >= 214]=CYAN
+    mapped=Image.fromarray(rgb).convert('RGBA')
+    veil=Image.new('RGBA', mapped.size, (*NAVY, darken))
+    return Image.alpha_composite(mapped, veil)
 
-def accent_flow(d,w,h,seed=1):
-    # deterministic premium line motif; no fake generated type
-    for i in range(3):
-        y=int(h*(0.70+0.055*i))
-        x0=80+i*18; x1=w-90-i*26
-        d.line((x0,y,x1,y-50+i*38), fill=(85,174,116,110), width=4)
-        d.ellipse((x0-8,y-8,x0+8,y+8), fill=(85,174,116,190))
-        d.ellipse((x1-7,y-57+i*38,x1+7,y-43+i*38), fill=(85,174,116,150))
+
+def diagonal_field(draw, w, h, seed=0):
+    for i in range(8):
+        y=110 + ((seed*53+i*155) % (h-220))
+        x0=-120 + i*35
+        x1=w+140
+        col=CYAN if i%2==0 else CYAN2
+        draw.line((x0,y,x1,y-180), fill=(*col, 34), width=3)
+    for i in range(6):
+        x=80 + ((seed*97+i*167) % (w-160))
+        y=120 + ((seed*41+i*211) % (h-240))
+        rr(draw,(x,y,x+88,y+8),4,fill=(*CYAN,58))
+
+
+def panel(draw, box, variant=0, alpha=224):
+    fill = (*NAVY, alpha) if variant % 2 == 0 else (*BLUE, alpha)
+    outline = (*CYAN, 125) if variant % 2 == 0 else (*CYAN2, 145)
+    rr(draw, box, 40, fill=fill, outline=outline, width=2)
+
+
+def pill(draw, box, label, size=22):
+    rr(draw, box, 999, fill=(*CYAN2,238), outline=(*CYAN,235), width=2)
+    draw_text(draw, ((box[0]+box[2])/2,(box[1]+box[3])/2), label, size, WHITE, True, 'mm')
+
+
+def card_copy(draw, rect, eyebrow, headline, body, mode=0, cta=None, logo_scale=1.0):
+    """Draw a measured card. All vertical positions are derived from text bounds."""
+    x1,y1,x2,y2=rect
+    pad=42
+    panel(draw, rect, mode, alpha=230)
+    logo(draw, x1+pad, y1+pad, logo_scale)
+    cursor=y1+pad+112
+    draw_text(draw, (x1+pad, cursor), eyebrow.upper(), 20, WHITE, True)
+    cursor += 54
+    max_w=x2-x1-pad*2
+    cta_h=72 if cta else 0
+    remaining_bottom=y2-pad-cta_h-20
+    headline_h=max(170, int((remaining_bottom-cursor)*.48))
+    wrapped, size, spacing = fit_wrapped(draw, headline, max_w, headline_h, 68, 44, True, 24)
+    draw_text(draw, (x1+pad, cursor), wrapped, size, WHITE, True, spacing=spacing)
+    _, hh=text_size(draw, wrapped, font(size,True), spacing)
+    cursor += hh + 34
+    body_h=max(110, remaining_bottom-cursor)
+    wrapped_body, body_size, body_spacing = fit_wrapped(draw, body, max_w, body_h, 36, 27, False, 37, .26)
+    draw_text(draw, (x1+pad, cursor), wrapped_body, body_size, WHITE, False, spacing=body_spacing)
+    if cta:
+        pill(draw, (x1+pad, y2-pad-70, x2-pad, y2-pad), cta, 22)
+
 
 source_files=[
     ('front-office-command-room.png','Front Office Command Room'),
@@ -122,160 +211,150 @@ items=[
 ('Build the system customers feel.','From first impression to follow-up, Stratos makes the business sharper and more trustworthy.','CLOSE',5),
 ]
 
-# Clear generated outputs only.
 for folder in [FEED, STORIES, CAROUSELS, VIDEOS]:
     for p in folder.glob('*'):
         if p.is_file(): p.unlink()
 
 feed=[]
-for day,(headline,body,pillar,src_idx) in enumerate(items,1):
+for idx,(headline,body,pillar,src_idx) in enumerate(items,1):
     src=SOURCE/source_files[src_idx][0]
-    im=grade(cover_image(src,(1080,1080)), darken=142 if day%5 else 105, blur=.18)
+    im=blue_grade(cover_image(src,(1080,1080)), darken=126 if idx%5 else 95, blur=.15)
     d=ImageDraw.Draw(im,'RGBA')
-    # Five editorial layouts keep the campaign premium instead of template-heavy.
-    mode=day%5
+    diagonal_field(d,1080,1080,idx)
+    mode=(idx-1)%6
+    # No DAY label; the eyebrow only names the strategic pillar.
     if mode==0:
-        box=(64,590,1016,1016); text_x=104; title_y=690; body_y=842; maxw=22; title_size=58
-        d.rectangle((0,570,1080,1080),fill=(0,0,0,128)); panel(d,box,alpha=150)
-        logo(d,86,74,1.0,True); txt(d,(104,638),f'DAY {day:02d} / {pillar}',18,GREEN3,True)
+        card_copy(d,(70,532,1010,1000),pillar,headline,body,mode,cta='DM STRATOS FOR A CLEAN AUDIT')
     elif mode==1:
-        box=(54,54,728,1018); text_x=90; title_y=292; body_y=594; maxw=17; title_size=64 if len(headline)<46 else 57
-        panel(d,box,alpha=178); logo(d,text_x,88,1.0,True); txt(d,(text_x,210),f'DAY {day:02d} / {pillar}',18,GREEN3,True)
+        card_copy(d,(58,58,716,996),pillar,headline,body,mode,cta=None)
+        pill(d,(742,884,1010,948),'REVENUE FLOW',21)
     elif mode==2:
-        box=(344,58,1024,1018); text_x=386; title_y=292; body_y=594; maxw=17; title_size=64 if len(headline)<46 else 57
-        panel(d,box,alpha=176); logo(d,text_x,88,1.0,True); txt(d,(text_x,210),f'DAY {day:02d} / {pillar}',18,GREEN3,True)
+        card_copy(d,(364,58,1022,996),pillar,headline,body,mode,cta=None)
+        pill(d,(70,884,338,948),'SYSTEM FIX',21)
     elif mode==3:
-        box=(84,86,996,498); text_x=124; title_y=206; body_y=742; maxw=23; title_size=60
-        panel(d,box,alpha=156); logo(d,124,112,0.92,True); txt(d,(124,184),f'DAY {day:02d} / {pillar}',17,GREEN3,True)
-        d.rectangle((0,688,1080,1080),fill=(0,0,0,132))
+        card_copy(d,(82,78,998,610),pillar,headline,body,mode,cta=None,logo_scale=.92)
+        pill(d,(118,884,720,952),'CAPTURE → ROUTE → FOLLOW UP',21)
+    elif mode==4:
+        card_copy(d,(90,90,990,990),pillar,headline,body,mode,cta='BOOK THE REVENUE FLOW AUDIT')
     else:
-        box=(90,92,990,990); text_x=134; title_y=304; body_y=612; maxw=18; title_size=62 if len(headline)<46 else 55
-        rr(d,box,46,fill=(248,250,246,224),outline=(85,174,116,84),width=2)
-        logo(d,text_x,128,1.0,False); txt(d,(text_x,246),f'DAY {day:02d} / {pillar}',18,GREEN,True)
-    dark_text = (mode==4)
-    fg=INK if dark_text else WHITE; sub=(74,92,78) if dark_text else MUTED; accent=GREEN if dark_text else GREEN3
-    txt(d,(text_x,title_y),wrap(headline,maxw),title_size,fg,True,spacing=3)
-    txt(d,(text_x+2,body_y),wrap(body,34 if mode in [0,3] else 30),32,sub,False,spacing=11)
-    # Varied mechanism/proof treatment; CTA appears selectively to avoid repetitive ad-template rhythm.
-    mech_y=910 if mode in [0,3] else 802
-    if day%3==0:
-        rr(d,(text_x,mech_y,text_x+560,mech_y+88),24,fill=(20,88,56,232),outline=GREEN3,width=2)
-        txt(d,(text_x+28,mech_y+25),'SYSTEM FIX',18,WHITE,True)
-        txt(d,(text_x+28,mech_y+52),'Capture → Route → Follow up',24,WHITE,True)
-    elif day%3==1:
-        for i,pt in enumerate(['Capture','Route','Book']):
-            x=text_x+i*158; y=mech_y
-            d.ellipse((x,y,x+50,y+50),fill=GREEN)
-            txt(d,(x+25,y+25),str(i+1),22,WHITE,True,'mm')
-            txt(d,(x,y+66),pt,19,fg,True)
-            if i<2: d.line((x+58,y+25,x+136,y+25),fill=accent,width=4)
-    else:
-        txt(d,(text_x,mech_y),'Revenue leak → owned workflow',28,fg,True)
-        d.line((text_x,mech_y+52,text_x+530,mech_y+52),fill=accent,width=5)
-    if day%4 in [1,2]:
-        rr(d,(text_x,944,text_x+574,1000),28,fill=GREEN if not dark_text else INK,outline=GREEN3,width=2)
-        txt(d,(text_x+287,972),'DM STRATOS FOR A CLEAN AUDIT',18,WHITE,True,'mm')
-    elif mode not in [0,3]:
-        txt(d,(text_x,958),'STRATOS AI / MODERN FRONT OFFICE',21,accent,True)
-    out=FEED/f'day_{day:02d}_{slug(headline)}.png'
+        panel(d,(64,64,1016,1016),mode,alpha=210)
+        logo(d,104,104,1.0)
+        draw_text(d,(104,232),pillar.upper(),20,WHITE,True)
+        wrapped,size,spacing=fit_wrapped(d,headline,830,300,78,48,True,25)
+        draw_text(d,(104,352),wrapped,size,WHITE,True,spacing=spacing)
+        bwrap,bsize,bspacing=fit_wrapped(d,body,800,170,36,27,False,39,.26)
+        draw_text(d,(108,706),bwrap,bsize,WHITE,False,spacing=bspacing)
+        for n,label in enumerate(['Capture','Route','Book']):
+            x=112+n*260; y=892
+            rr(d,(x,y,x+190,y+62),26,fill=(*BLUE,238),outline=(*CYAN,220),width=2)
+            draw_text(d,(x+95,y+31),label,22,WHITE,True,'mm')
+            if n<2: d.line((x+204,y+31,x+246,y+31),fill=(*CYAN,220),width=4)
+    out=FEED/f'post_{idx:02d}_{slug(headline)}.png'
     im.convert('RGB').save(out,quality=95)
     feed.append(out)
 
-# Stories/reel covers: 12 high-impact verticals.
+# Stories/reel covers: 12 high-impact verticals with measured lower panels.
 story_indices=[0,1,2,3,4,5,6,10,14,20,26,29]
 stories=[]
-for n,idx in enumerate(story_indices,1):
-    headline,body,pillar,src_idx=items[idx]
+for n,idx0 in enumerate(story_indices,1):
+    headline,body,pillar,src_idx=items[idx0]
     src=SOURCE/source_files[src_idx][0]
-    crop='center'
-    if 'medspa' in str(src).lower(): crop='top'
-    im=grade(cover_image(src,(1080,1920),crop), darken=148, blur=.18)
+    crop='top' if 'medspa' in str(src).lower() else 'center'
+    im=blue_grade(cover_image(src,(1080,1920),crop), darken=132, blur=.12)
     d=ImageDraw.Draw(im,'RGBA')
-    d.rectangle((0,0,1080,430),fill=(0,0,0,92))
-    d.rectangle((0,1320,1080,1920),fill=(0,0,0,132))
-    logo(d,72,92,1.18,True)
-    txt(d,(72,292),f'{pillar} / PREMIUM SYSTEMS',22,GREEN3,True)
-    txt(d,(72,1318),wrap(headline,16),78 if len(headline)<44 else 68,WHITE,True,spacing=4)
-    txt(d,(78,1580),wrap(body,29),38,MUTED,False,spacing=12)
-    rr(d,(72,1774,1008,1856),41,fill=GREEN,outline=GREEN3,width=2)
-    txt(d,(540,1816),'BOOK THE STRATOS REVENUE FLOW AUDIT',27,WHITE,True,'mm')
+    diagonal_field(d,1080,1920,n+40)
+    panel(d,(56,66,1024,392),n,alpha=218)
+    logo(d,92,106,1.15)
+    draw_text(d,(92,282),f'{pillar.upper()} / PREMIUM SYSTEMS',22,WHITE,True)
+    panel(d,(56,1040,1024,1718),n+1,alpha=236)
+    max_w=856
+    wrapped,size,spacing=fit_wrapped(d,headline,max_w,270,86,60,True,18)
+    draw_text(d,(104,1118),wrapped,size,WHITE,True,spacing=spacing)
+    _,hh=text_size(d,wrapped,font(size,True),spacing)
+    bwrap,bsize,bspacing=fit_wrapped(d,body,max_w,145,43,33,False,31,.24)
+    draw_text(d,(108,1118+hh+34),bwrap,bsize,WHITE,False,spacing=bspacing)
+    pill(d,(104,1604,976,1686),'BOOK THE REVENUE FLOW AUDIT',30)
     out=STORIES/f'story_{n:02d}_{slug(headline)}.png'
     im.convert('RGB').save(out,quality=95)
     stories.append(out)
 
-# Carousels: 4 premium mini-decks x 5 slides.
 carousel_sets=[
 ('The Revenue Leak Audit',['Where intent enters','Where response slows','Where ownership disappears','Where follow-up dies','Where Stratos installs the path'],2),
 ('The Modern Front Office',['Website captures','Automation routes','Team gets context','Prospect gets next step','Owner sees outcome'],0),
-('Premium Intake Playbook',['Fast first impression','One serious CTA','Instant qualification','Booked action','Measured follow-up'],3),
-('Enterprise Handoff Fix',['Fewer tabs','Cleaner ownership','Less waiting','More booked action','One operating system'],1),
+('Premium Intake Playbook',['Fast first impression','One serious CTA','Instant qualification','Booked calls','Measured follow-up'],3),
+('Enterprise Handoff Fix',['Fewer tabs','Cleaner ownership','Less waiting','More booked calls','One operating system'],1),
 ]
 carousel=[]
 for deck,(deck_title,slides,src_idx) in enumerate(carousel_sets,1):
     src=SOURCE/source_files[src_idx][0]
     for sidx,slide in enumerate(slides,1):
-        im=grade(cover_image(src,(1080,1080)), darken=172 if sidx>1 else 130, blur=.28)
+        im=blue_grade(cover_image(src,(1080,1080)), darken=150 if sidx>1 else 116, blur=.22)
         d=ImageDraw.Draw(im,'RGBA')
-        panel(d,(70,70,1010,1010),alpha=168)
-        logo(d,104,108,1.0,True)
-        txt(d,(104,230),f'0{sidx} / {deck_title.upper()}',20,GREEN3,True)
+        diagonal_field(d,1080,1080,deck*10+sidx)
+        panel(d,(70,70,1010,1010),deck+sidx,alpha=225)
+        logo(d,104,108,1.0)
+        # Deck label only; no day numbering and no visible slide numbering.
+        draw_text(d,(104,230),deck_title.upper(),23,WHITE,True)
         if sidx==1:
-            txt(d,(104,344),wrap(deck_title,14),86,WHITE,True,spacing=4)
-            txt(d,(108,720),'Swipe for the exact Stratos operating logic.',34,MUTED,False)
+            wrapped,size,spacing=fit_wrapped(d,deck_title,830,280,90,60,True,16)
+            draw_text(d,(104,352),wrapped,size,WHITE,True,spacing=spacing)
+            draw_text(d,(108,728),'Swipe for the Stratos operating logic.',38,WHITE,False)
         else:
-            txt(d,(104,346),wrap(slide,13),92,WHITE,True,spacing=3)
-            txt(d,(108,690),wrap('Premium brands do not leave this step to memory, manual tabs, or office-hour luck.',34),32,MUTED,False,spacing=10)
-        accent_flow(d,1080,1080,deck+sidx)
-        rr(d,(104,920,650,980),30,fill=GREEN,outline=GREEN3,width=2)
-        txt(d,(377,950),'STRATOS SYSTEMS',22,WHITE,True,'mm')
-        out=CAROUSELS/f'week_{deck:02d}_slide_{sidx:02d}_{slug(slide)}.png'
+            wrapped,size,spacing=fit_wrapped(d,slide,810,245,94,62,True,15)
+            draw_text(d,(104,358),wrapped,size,WHITE,True,spacing=spacing)
+            body_line=f'This is where Stratos turns scattered intent into a cleaner revenue path.'
+            bwrap,bsize,bspacing=fit_wrapped(d,body_line,800,160,38,29,False,34,.24)
+            draw_text(d,(108,690),bwrap,bsize,WHITE,False,spacing=bspacing)
+        pill(d,(104,876,700,948),'STRATOS SYSTEMS',27)
+        out=CAROUSELS/f'deck_{deck:02d}_slide_{sidx:02d}_{slug(slide)}.png'
         im.convert('RGB').save(out,quality=95)
         carousel.append(out)
 
-# Simple premium motion covers from GPT source/key-art.
 video_specs=[
 ('website-is-your-operator',items[0],0),
 ('handoff-leak',items[1],1),
 ('disconnected-tools',items[2],2),
 ('medspa-after-hours',items[3],3),
-('booked-action',items[4],4),
+('booked-calls',items[4],4),
 ('clean-workflow',items[5],5),
 ]
 for vid,(name,(headline,body,pillar,src_idx),src_idx) in enumerate(video_specs,1):
     src=SOURCE/source_files[src_idx][0]
-    base=grade(cover_image(src,(1080,1920),'center'), darken=150, blur=.16)
+    base=blue_grade(cover_image(src,(1080,1920),'center'), darken=134, blur=.12)
     d=ImageDraw.Draw(base,'RGBA')
-    logo(d,72,105,1.15,True)
-    txt(d,(72,340),wrap(headline,15),78,WHITE,True,spacing=4)
-    txt(d,(78,650),wrap(body,28),39,MUTED,False,spacing=12)
-    rr(d,(72,1648,1008,1728),40,fill=GREEN,outline=GREEN3,width=2)
-    txt(d,(540,1688),'STRATOS AI / REVENUE FLOW AUDIT',27,WHITE,True,'mm')
+    diagonal_field(d,1080,1920,vid+80)
+    panel(d,(56,80,1024,820),vid,alpha=224)
+    logo(d,92,124,1.12)
+    wrapped,size,spacing=fit_wrapped(d,headline,850,260,78,55,True,18)
+    draw_text(d,(92,314),wrapped,size,WHITE,True,spacing=spacing)
+    _,hh=text_size(d,wrapped,font(size,True),spacing)
+    bwrap,bsize,bspacing=fit_wrapped(d,body,850,170,38,29,False,32,.26)
+    draw_text(d,(96,314+hh+36),bwrap,bsize,WHITE,False,spacing=bspacing)
+    pill(d,(72,1648,1008,1728),'STRATOS AI / REVENUE FLOW AUDIT',27)
     frames=[]
     for f in range(105):
         frame=base.copy()
         od=ImageDraw.Draw(frame,'RGBA')
         offset=f*5
-        od.line((90+offset%840,1518,420+offset%840,1518),fill=(85,174,116,160),width=7)
-        od.ellipse((72+(offset*2)%920,1486,94+(offset*2)%920,1508),fill=(85,174,116,190))
+        od.line((90+offset%840,1518,420+offset%840,1518),fill=(*CYAN,170),width=7)
+        od.ellipse((72+(offset*2)%920,1486,94+(offset*2)%920,1508),fill=(*CYAN2,210))
         frames.append(np.array(frame.convert('RGB')))
     imageio.mimsave(VIDEOS/f'reel_{vid:02d}_{name}.mp4',frames,fps=25,quality=8,macro_block_size=1)
 
-# Preview contact sheet
+# Preview contact sheet — clean/client-facing, no filenames or visible numbering.
 thumbs=[Image.open(p).resize((216,216)) for p in feed[:20]]
-sheet=Image.new('RGB',(1080,1160),BLACK)
-sd=ImageDraw.Draw(sheet)
+sheet=Image.new('RGB',(1080,864),NAVY)
 for i,im in enumerate(thumbs):
-    x=(i%5)*216; y=(i//5)*270
+    x=(i%5)*216; y=(i//5)*216
     sheet.paste(im,(x,y))
-    sd.text((x+8,y+222),Path(feed[i]).name[:25],fill=(220,240,230),font=font(11))
 sheet.save(PACK/'PREVIEW_CONTACT_SHEET.jpg',quality=92)
 
 captions=[]
-for day,(headline,body,pillar,src_idx) in enumerate(items,1):
-    captions.append(f"## Day {day:02d} — {headline}\n\n{body}\n\nCTA: DM Stratos for a clean revenue-flow audit.\nBest use: Instagram feed / LinkedIn / sales follow-up.\nSource art: GPT Image 2 OAuth — {source_files[src_idx][1]}\n")
+for idx,(headline,body,pillar,src_idx) in enumerate(items,1):
+    captions.append(f"## Post {idx:02d} — {headline}\n\n{body}\n\nCTA: DM Stratos for a clean revenue-flow audit.\nBest use: Instagram feed / LinkedIn / sales follow-up.\nSource art: GPT Image 2 OAuth — {source_files[src_idx][1]}\n")
 (PACK/'CAPTIONS.md').write_text('# Stratos GPT Image 2 Premium Content Series — Captions\n\n'+'\n'.join(captions))
-(PACK/'CONTENT_CALENDAR.md').write_text('# 30-Day Premium Stratos Content Calendar\n\n'+'\n'.join([f"- Day {i:02d}: {h} — {pillar}" for i,(h,b,pillar,src_idx) in enumerate(items,1)]))
-(PACK/'README.md').write_text(f'''# Stratos GPT Image 2 Premium Content Series\n\nBuilt from **6 GPT Image 2 OAuth source renders** with exact local Stratos typography overlays.\n\n## Contents\n\n- 30 premium feed posts: `assets/feed/`\n- 12 story/reel covers: `assets/stories/`\n- 4 carousel mini-decks / 20 slides: `assets/carousels/`\n- 6 simple motion reel covers: `videos/`\n- Captions/calendar/manifest/preview contact sheet\n\n## Production note\n\nThe generated source images intentionally contain no final Stratos logo/headline text. Final branding, headlines, CTAs, and offer language are composited locally for exact spelling, readability, and consistent Stratos quality.\n''')
+(PACK/'CONTENT_CALENDAR.md').write_text('# Premium Stratos Content Calendar\n\n'+'\n'.join([f"- Post {i:02d}: {h} — {pillar}" for i,(h,b,pillar,src_idx) in enumerate(items,1)]))
+(PACK/'README.md').write_text(f'''# Stratos GPT Image 2 Premium Content Series\n\nBuilt from **6 GPT Image 2 OAuth source renders** with exact local Stratos typography overlays.\n\n## Brand palette\n\n- Background: `#041C44` / `#00167A`\n- Accent: `#00AEEF` / `#0081CC`\n- Text: `#FFFFFF`\n\n## Quality pass\n\n- Removed visible day numbers from posts.\n- Rebuilt posts, stories, carousels, and motion covers with measured text boxes to prevent overlap.\n- Kept all final typography deterministic/local for exact Stratos spelling and mobile readability.\n\n## Contents\n\n- 30 premium feed posts: `assets/feed/`\n- 12 story/reel covers: `assets/stories/`\n- 4 carousel mini-decks / 20 slides: `assets/carousels/`\n- 6 simple motion reel covers: `videos/`\n- Captions/calendar/manifest/preview contact sheet\n\n## Production note\n\nThe generated source images intentionally contain no final Stratos logo/headline text. Final branding, headlines, CTAs, and offer language are composited locally for exact spelling, readability, and consistent Stratos quality.\n''')
 manifest={
     'name':'Stratos GPT Image 2 Premium Content Series',
     'source_model':'gpt-image-2-medium via Hermes image_generate/openai-codex OAuth',
@@ -285,6 +364,8 @@ manifest={
     'carousel_slides':len(carousel),
     'videos':len(list(VIDEOS.glob('*.mp4'))),
     'final_type':'local deterministic overlays for exact Stratos typography',
+    'palette':{'background':['#041C44','#00167A'],'accent':['#00AEEF','#0081CC'],'text':'#FFFFFF'},
+    'quality_pass':['removed visible day numbers','measured text boxes to avoid overlap','rebuilt all posts stories carousels and motion covers'],
     'source_files':[{'file':f,'concept':c} for f,c in source_files]
 }
 (PACK/'manifest.json').write_text(json.dumps(manifest,indent=2))

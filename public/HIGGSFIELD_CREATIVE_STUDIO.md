@@ -39,7 +39,7 @@ Purpose: reusable hero/background for medspa close rooms, Instagram, and public 
 
 ```bash
 higgsfield generate create gpt_image_2 \
-  --prompt "Premium editorial ad key art for Stratos AI, boutique medspa front desk after hours, elegant dark forest-green and warm-white palette, a phone showing a consult request routed into an AI concierge workflow, cinematic lighting, realistic luxury clinic details, no fake logos, no readable tiny text, high-end agency aesthetic, space for headline overlay." \
+  --prompt "Premium editorial ad key art for Stratos AI, boutique medspa front desk after hours, deep navy #041C44 and royal blue #00167A environment with electric cyan #00AEEF/#0081CC signal accents and clean white overlay space, a phone showing a consult request routed into an AI concierge workflow, cinematic lighting, realistic luxury clinic details, no fake logos, no readable tiny text, high-end agency aesthetic." \
   --aspect_ratio 9:16 \
   --resolution 2k \
   --wait \
@@ -53,7 +53,7 @@ Purpose: flagship Stratos “tools should talk to each other” brand ad.
 
 ```bash
 higgsfield generate create gpt_image_2 \
-  --prompt "Premium B2B operations visual for Stratos AI: fragmented local business tools represented as separate dark glass panels slowly connecting into one clean command flow, forest green signal lines, black and off-white palette, no clutter, no fake brand marks, dramatic but minimal, room for typography overlay." \
+  --prompt "Premium B2B operations visual for Stratos AI: fragmented local business tools represented as separate deep navy #041C44 and royal blue #00167A glass panels slowly connecting into one clean command flow, electric cyan #00AEEF/#0081CC signal lines, white negative space for typography overlay, no clutter, no fake brand marks, dramatic but minimal." \
   --aspect_ratio 1:1 \
   --resolution 2k \
   --wait \
@@ -84,7 +84,7 @@ Purpose: polished ad concept for public site and pitch material.
 
 ```bash
 higgsfield generate create marketing_studio_video \
-  --prompt "Polished commercial for Stratos AI showing a local business losing after-hours leads, then switching to a premium website plus AI intake and follow-up system. Modern forest-green/black/white brand mood, serious, high-trust, no hype, end with: Your website should act like your best operator." \
+  --prompt "Polished commercial for Stratos AI showing a local business losing after-hours leads, then switching to a premium website plus AI intake and follow-up system. Modern #041C44/#00167A blue brand mood with #00AEEF/#0081CC accents and #FFFFFF type cards, serious, high-trust, no hype, end with: Your website should act like your best operator." \
   --mode tv_spot \
   --duration 15 \
   --resolution 720p \
@@ -110,5 +110,5 @@ python3 scripts/creative/download_higgsfield_results.py creative/higgsfield/jobs
 - no warped logo/text in source image
 - no fake dashboards where details are meant to be read
 - strong phone readability after local overlay
-- consistent Stratos green/black/white system
+- consistent Stratos blue/cyan/white system: #041C44 or #00167A backgrounds, #00AEEF or #0081CC accents, #FFFFFF text
 - final asset exported with manifest entry

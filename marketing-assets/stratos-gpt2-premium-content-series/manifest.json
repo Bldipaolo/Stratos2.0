@@ -7,6 +7,22 @@
   "carousel_slides": 20,
   "videos": 6,
   "final_type": "local deterministic overlays for exact Stratos typography",
+  "palette": {
+    "background": [
+      "#041C44",
+      "#00167A"
+    ],
+    "accent": [
+      "#00AEEF",
+      "#0081CC"
+    ],
+    "text": "#FFFFFF"
+  },
+  "quality_pass": [
+    "removed visible day numbers",
+    "measured text boxes to avoid overlap",
+    "rebuilt all posts stories carousels and motion covers"
+  ],
   "source_files": [
     {
       "file": "front-office-command-room.png",

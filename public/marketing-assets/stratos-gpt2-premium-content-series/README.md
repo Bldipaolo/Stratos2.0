@@ -2,6 +2,18 @@
 
 Built from **6 GPT Image 2 OAuth source renders** with exact local Stratos typography overlays.
 
+## Brand palette
+
+- Background: `#041C44` / `#00167A`
+- Accent: `#00AEEF` / `#0081CC`
+- Text: `#FFFFFF`
+
+## Quality pass
+
+- Removed visible day numbers from posts.
+- Rebuilt posts, stories, carousels, and motion covers with measured text boxes to prevent overlap.
+- Kept all final typography deterministic/local for exact Stratos spelling and mobile readability.
+
 ## Contents
 
 - 30 premium feed posts: `assets/feed/`
