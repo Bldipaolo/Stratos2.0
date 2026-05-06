@@ -28,10 +28,61 @@ function strategy(){
  const commands=[['Full rebuild/test','python3 scripts/run_all.py'],['Public site only','python3 scripts/build_public_site.py'],['Close rooms','python3 scripts/generate_close_rooms.py'],['Morning briefing','python3 scripts/generate_morning_briefing.py'],['Deploy manifest','python3 scripts/deploy_prep.py'],['Local Hermes draft',`hermes -p stratos-local chat -t terminal,file -q "Using /Users/bradleydipaolo/stratos-ai/hermes-command-center, draft outreach for ${top[0].business} and save it under local-ai-drafts/."`]];
  $('#app').innerHTML=metrics()+`<section class="strategy-hero"><p class="eyebrow">Integrated agency operating system</p><h2>One hub for command center, public website, demos, pitch kits, close rooms, local AI, and deploy prep.</h2><p>The default path is local-first and script-first: use zero-model generators for repeatable production, local Ollama for rough content, and Codex only for premium architecture/final review.</p><div class="strategy-actions"><button onclick="location.hash='war'">Work leads</button><button onclick="location.hash='usage'">Open Usage Saver</button><a href="./public-site/index.html">Public website</a></div></section><div class="grid cols-5 ops-grid">${ops.map((o,i)=>`<div class="card ops-lane"><em>0${i+1}</em><h2>${o[0]}</h2><p class="muted">${o[1]}</p></div>`).join('')}</div><div class="split"><div class="card"><h2>Next three money moves</h2>${top.map((l,i)=>`<div class="proof-item"><div class="proof-dot"></div><div><b>${i+1}. ${esc(l.business)}</b><br><span class="muted">${esc(l.offer)} · ${fmt(l.estBookings*l.avgValue)}/mo upside · <a href="./close-rooms/${l.id}.html">close room</a></span></div></div>`).join('')}</div><div class="card"><h2>Full-system commands</h2><p class="muted">These wire command centers, websites, demos, briefings, and deploy assets together.</p>${commands.map(([label,cmd])=>`<div class="cmd-row"><div><b>${label}</b><code>${esc(cmd)}</code></div><button onclick="copy('${cmd.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div></div>`;
 }
+function upside(l){return (l.estBookings||0)*(l.avgValue||0)}
+function industryStats(){
+ const map={}; state.leads.forEach(l=>{map[l.industry]=map[l.industry]||{count:0,upside:0,score:0}; map[l.industry].count++; map[l.industry].upside+=upside(l); map[l.industry].score+=l.score;});
+ return Object.entries(map).map(([name,v])=>({name,...v,avg:Math.round(v.score/v.count)})).sort((a,b)=>b.upside-a.upside);
+}
+function warMetricCards(leads=state.leads){
+ const sorted=leads.slice().sort((a,b)=>b.score-a.score), top=sorted[0]||{}, hot=leads.filter(l=>l.score>=88), pipe=leads.reduce((a,l)=>a+upside(l),0), avg=Math.round(leads.reduce((a,l)=>a+l.score,0)/(leads.length||1));
+ const medspa=leads.filter(l=>l.industry==='Medspa').reduce((a,l)=>a+upside(l),0);
+ return `<div class="war-metrics">
+  <div class="war-metric primary"><span>Pipeline upside</span><strong data-count="${pipe}">${fmt(pipe)}</strong><small>Monthly opportunity from current board</small></div>
+  <div class="war-metric"><span>Priority lead</span><strong>${esc(top.business||'None')}</strong><small>${top.score||0} score · ${fmt(upside(top))}/mo</small></div>
+  <div class="war-metric"><span>Hot targets</span><strong>${hot.length}/${leads.length}</strong><small>Score 88+ ready for first touch</small></div>
+  <div class="war-metric"><span>Average score</span><strong>${avg}</strong><small>Board quality signal</small></div>
+  <div class="war-metric"><span>Medspa upside</span><strong>${fmt(medspa)}</strong><small>Primary vertical focus</small></div>
+ </div>`;
+}
+function scoreTone(score){return score>=90?'elite':score>=88?'hot':'warm'}
+function intentLabel(l){return l.score>=90?'Send today':l.industry==='Medspa'?'Medspa lane':'Nurture'}
 function war(){
- $('#app').innerHTML=metrics()+`<div class="section-title"><div><h2>Ranked attack board</h2><p>Real Boca leads ordered by revenue probability and outreach urgency.</p></div><div class="filters"><select id="industry"><option>All industries</option>${[...new Set(state.leads.map(l=>l.industry))].map(i=>`<option>${esc(i)}</option>`).join('')}</select><input id="search" placeholder="Search leads"></div></div><div class="card"><table class="lead-table"><thead><tr><th>Lead</th><th>Score</th><th>Weakness</th><th>Offer</th><th>Next move</th></tr></thead><tbody id="leadRows"></tbody></table></div>`;
- const draw=()=>{const q=$('#search').value.toLowerCase(), ind=$('#industry').value; const rows=state.leads.filter(l=>(ind==='All industries'||l.industry===ind)&&(l.business.toLowerCase().includes(q)||l.industry.toLowerCase().includes(q))).sort((a,b)=>b.score-a.score).map(l=>`<tr><td><b>${esc(l.business)}</b><br><span class="muted">${esc(l.industry)} · ${esc(l.phone)}</span><br><span class="muted">${esc(l.address)}</span></td><td><span class="score">${l.score}</span></td><td>${esc(l.weaknesses[0])}</td><td><span class="pill">${esc(l.offer)}</span></td><td><button onclick="selectLead('${l.id}'); location.hash='pitch'">Generate Pitch Kit</button> <a class="inline-link" href="./close-rooms/${l.id}.html">Close room</a></td></tr>`).join(''); $('#leadRows').innerHTML=rows;};
- $('#search').oninput=draw; $('#industry').onchange=draw; draw();
+ const industries=industryStats();
+ $('#app').innerHTML=`<section class="war-room">
+  <div class="war-hero reveal-card">
+    <div><p class="eyebrow">Clean attack view</p><h2>Less clutter. More signal.</h2><p>Prioritize the highest-upside Boca businesses, see why they matter, and jump straight into pitch kits or private close rooms.</p></div>
+    <div class="war-hero-panel"><span>Next best action</span><b>${esc(state.leads.slice().sort((a,b)=>b.score-a.score)[0]?.business||'Top lead')}</b><small>Open pitch kit → send concise first touch → attach close room.</small><button onclick="selectLead('${state.leads.slice().sort((a,b)=>b.score-a.score)[0]?.id||''}'); location.hash='pitch'">Build pitch</button></div>
+  </div>
+  ${warMetricCards()}
+  <div class="war-layout">
+    <aside class="war-control reveal-card">
+      <div class="control-head"><span>Filters</span><button id="resetWar">Reset</button></div>
+      <label>Industry</label><select id="industry"><option>All industries</option>${industries.map(i=>`<option>${esc(i.name)}</option>`).join('')}</select>
+      <label>Search</label><input id="search" placeholder="Business, offer, weakness...">
+      <label>Minimum score</label><input id="minScore" type="range" min="80" max="95" value="86"><div class="range-readout"><span>Show score ≥</span><b id="scoreReadout">86</b></div>
+      <div class="vertical-stack"><h3>Vertical signal</h3>${industries.map(i=>`<button class="industry-chip" data-industry="${esc(i.name)}"><span>${esc(i.name)}</span><b>${fmt(i.upside)}</b><small>${i.count} leads · avg ${i.avg}</small></button>`).join('')}</div>
+    </aside>
+    <section class="war-board">
+      <div class="board-top"><div><h2>Priority board</h2><p id="resultCount">${state.leads.length} leads</p></div><div class="sort-pill">Sorted by score + upside</div></div>
+      <div id="leadCards" class="lead-cards"></div>
+    </section>
+  </div>
+ </section>`;
+ const draw=()=>{
+  const q=$('#search').value.toLowerCase().trim(), ind=$('#industry').value, min=+$('#minScore').value; $('#scoreReadout').textContent=min;
+  const rows=state.leads.filter(l=>(ind==='All industries'||l.industry===ind)&&l.score>=min&&[l.business,l.industry,l.offer,l.angle,...l.weaknesses].join(' ').toLowerCase().includes(q)).sort((a,b)=>(b.score-a.score)||(upside(b)-upside(a)));
+  $('#resultCount').textContent=`${rows.length} lead${rows.length===1?'':'s'} visible`;
+  $('#leadCards').innerHTML=rows.map((l,i)=>`<article class="lead-card ${scoreTone(l.score)}" style="--delay:${Math.min(i,8)*42}ms">
+    <div class="lead-main"><div><span class="rank">#${i+1}</span><h3>${esc(l.business)}</h3><p>${esc(l.industry)} · ${esc(l.address)}</p></div><div class="score-ring" style="--score:${l.score}"><span>${l.score}</span></div></div>
+    <div class="lead-kpis"><div><span>Upside</span><b>${fmt(upside(l))}/mo</b></div><div><span>Bookings</span><b>${l.estBookings}</b></div><div><span>Avg value</span><b>${fmt(l.avgValue)}</b></div></div>
+    <div class="lead-focus"><span>${esc(intentLabel(l))}</span><p>${esc(l.weaknesses[0])}</p></div>
+    <div class="offer-strip"><b>${esc(l.offer)}</b><small>${esc(l.angle)}</small></div>
+    <div class="lead-actions"><button onclick="selectLead('${l.id}'); location.hash='pitch'">Pitch kit</button><a class="inline-link" href="./close-rooms/${l.id}.html">Close room</a><a class="inline-link subtle" href=".${l.demo}">Demo</a></div>
+  </article>`).join('') || `<div class="empty-board"><b>No leads match this filter.</b><span>Lower the score threshold or reset filters.</span></div>`;
+ };
+ $('#search').oninput=draw; $('#industry').onchange=draw; $('#minScore').oninput=draw; $('#resetWar').onclick=()=>{$('#industry').value='All industries'; $('#search').value=''; $('#minScore').value=86; draw();};
+ document.querySelectorAll('.industry-chip').forEach(b=>b.onclick=()=>{$('#industry').value=b.dataset.industry; draw();});
+ draw();
 }
 function demos(){ $('#app').innerHTML=`<div class="section-title"><div><h2>Top demos to build/send first</h2><p>Specific demo targets, not generic templates.</p></div><a class="inline-link" href="./public-site/index.html">View public Stratos site</a></div><div class="demo-grid">${state.leads.map(l=>`<div class="card demo-card"><div class="preview"><div class="bar w90"></div><div class="bar w70"></div><div class="bar w45"></div></div><h2>${esc(l.business)}</h2><p class="muted">${esc(l.industry)} demo concept: ${esc(l.angle)}</p><p><span class="pill">AI booking</span><span class="pill">Lead capture</span><span class="pill">Before/after audit</span></p><a class="inline-link" href=".${l.demo}">Open demo</a> · <a class="inline-link" href="./close-rooms/${l.id}.html">Close room</a></div>`).join('')}</div>`; }
 function pitchText(l=state.selected){return `SUBJECT: Quick ${l.industry.toLowerCase()} growth idea for ${l.business}\n\nHey ${l.business} team — I was looking at your online booking and lead flow and noticed an opportunity: ${l.weaknesses[0].toLowerCase()}.\n\nI run Stratos AI. We build premium local-business sites with AI booking, missed-call recovery, review automation, and follow-up systems. For ${l.business}, I’d recommend: ${l.offer}.\n\nWhy it fits:\n- ${l.weaknesses.join('\n- ')}\n\nThe angle: ${l.angle}\n\nI can send a quick preview/mockup showing what this would look like with your brand. If it doesn’t feel useful, no worries.\n\n— Bradley\nStratos AI\n\nSMS/DM: Saw a couple ways ${l.business} could capture more ${l.industry.toLowerCase()} leads with AI booking + follow-up. Want me to send the quick preview?\n\nCALL OPENER: I’m local to Boca and built a quick growth-system concept for ${l.business}. The main idea is ${l.angle}\n\nLINKS:\nDemo: .${l.demo}\nClose room: ./close-rooms/${l.id}.html`}
