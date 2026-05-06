@@ -26,6 +26,8 @@ INCLUDE_DIRS = [
     'marketing-assets/stratos-gpt2-premium-content-series',
     'n8n',
     'operations',
+    'vertical-demos',
+    'marketing-assets/vertical-demo-sites',
 ]
 IGNORE_NAMES = {'.DS_Store'}
 IGNORE_PARTS = {'.git', '__pycache__', '.vercel'}

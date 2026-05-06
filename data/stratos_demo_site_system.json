@@ -1,0 +1,186 @@
+{
+  "status": "GPT Image 2 OAuth hero imagery generated and locally persisted; final page typography/claims are deterministic local code.",
+  "verticals": [
+    {
+      "slug": "medspa",
+      "vertical": "Medspa",
+      "brand": "Aurelia Med Spa",
+      "accent": "#55AE74",
+      "headline": "Premium treatment consults captured before they leak to Instagram DMs.",
+      "subhead": "A luxury treatment funnel with AI consult routing, before/after proof sequencing, and instant follow-up.",
+      "heroImage": "./marketing-assets/vertical-demo-sites/medspa-hero.png",
+      "demoPath": "./vertical-demos/medspa.html",
+      "offer": "AI Consult Concierge",
+      "price": "$10k setup + $2k/mo",
+      "proof": "Clearly labeled demo/projection; no client result claim.",
+      "workflow": [
+        "Treatment interest",
+        "Consult quiz",
+        "AI routing",
+        "SMS/email follow-up",
+        "Booked consult",
+        "Review/referral loop"
+      ],
+      "modules": [
+        "Treatment recommender",
+        "Consult capture form",
+        "After-hours concierge",
+        "Proof gallery",
+        "Referral engine"
+      ]
+    },
+    {
+      "slug": "dental",
+      "vertical": "Dental",
+      "brand": "Boca Smile Studio",
+      "accent": "#00AEEF",
+      "headline": "New patients routed from questions to appointments in one clean path.",
+      "subhead": "A trust-first dental site with insurance answers, missed-call text-back, financing prompts, and specialty landing pages.",
+      "heroImage": "./marketing-assets/vertical-demo-sites/dental-hero.png",
+      "demoPath": "./vertical-demos/dental.html",
+      "offer": "New-Patient Capture Engine",
+      "price": "$5k setup + $1.5k/mo",
+      "proof": "Demo workflow showing capture quality, not guaranteed appointment volume.",
+      "workflow": [
+        "New patient search",
+        "Concern selector",
+        "Insurance/financing answers",
+        "Appointment request",
+        "Staff notification",
+        "Review request"
+      ],
+      "modules": [
+        "New patient path",
+        "Insurance FAQ",
+        "Emergency CTA",
+        "Missed-call text-back",
+        "Review engine"
+      ]
+    },
+    {
+      "slug": "home-services",
+      "vertical": "Home Services",
+      "brand": "Palm Coast Mechanical",
+      "accent": "#0081CC",
+      "headline": "Emergency jobs captured while competitors are still calling back.",
+      "subhead": "A home-services front door for HVAC, plumbing, electrical, and dispatch teams that need speed, trust, and clean job intake.",
+      "heroImage": "./marketing-assets/vertical-demo-sites/home-services-hero.png",
+      "demoPath": "./vertical-demos/home-services.html",
+      "offer": "Emergency Job Capture System",
+      "price": "$7.5k setup + $1.5k/mo",
+      "proof": "Demo of response-path design; revenue impact must be proven with live call/job logs.",
+      "workflow": [
+        "Emergency search",
+        "Tap call/request",
+        "Missed-call text-back",
+        "Job triage",
+        "Dispatch alert",
+        "Maintenance nurture"
+      ],
+      "modules": [
+        "Emergency hero",
+        "Estimate intake",
+        "Dispatch routing",
+        "Maintenance plan nurture",
+        "Local proof blocks"
+      ]
+    },
+    {
+      "slug": "legal",
+      "vertical": "Legal",
+      "brand": "Berman Intake Group",
+      "accent": "#D9B56D",
+      "headline": "Urgent prospects routed by case type, risk, and next action.",
+      "subhead": "A high-trust legal intake command room for firms that cannot afford vague forms or slow follow-up.",
+      "heroImage": "./marketing-assets/vertical-demo-sites/legal-hero.png",
+      "demoPath": "./vertical-demos/legal.html",
+      "offer": "Case Intake Command Room",
+      "price": "$10k setup + $2.5k/mo",
+      "proof": "Demo/projection only; no legal outcome or case volume claim.",
+      "workflow": [
+        "Case-type landing",
+        "Urgency qualifier",
+        "Conflict-safe intake",
+        "Attorney alert",
+        "Consult scheduled",
+        "Follow-up sequence"
+      ],
+      "modules": [
+        "Case-type router",
+        "Trust timeline",
+        "Urgency capture",
+        "Attorney handoff",
+        "Follow-up workflow"
+      ]
+    },
+    {
+      "slug": "auto",
+      "vertical": "Auto",
+      "brand": "Velocity Detail House",
+      "accent": "#7CE7FF",
+      "headline": "VIP auto customers guided from package interest to booked service.",
+      "subhead": "A premium quote and package selector for detailing, wraps, tint, performance, and service brands.",
+      "heroImage": "./marketing-assets/vertical-demo-sites/auto-hero.png",
+      "demoPath": "./vertical-demos/auto.html",
+      "offer": "VIP Quote + Package Selector",
+      "price": "$5k setup + $1k/mo",
+      "proof": "Demo workflow for qualification and follow-up; real proof requires booked-service tracking.",
+      "workflow": [
+        "Package interest",
+        "Vehicle selector",
+        "Quote request",
+        "Upsell path",
+        "Booking prompt",
+        "Review/referral ask"
+      ],
+      "modules": [
+        "Package selector",
+        "Vehicle intake",
+        "Before/after proof",
+        "SMS quote follow-up",
+        "VIP retainer offers"
+      ]
+    }
+  ],
+  "crmStages": [
+    "New",
+    "Contacted",
+    "Responded",
+    "Meeting",
+    "Won",
+    "Lost"
+  ],
+  "pricingDefaults": {
+    "Launch Site": {
+      "setup": 3000,
+      "monthly": 0
+    },
+    "Growth Site": {
+      "setup": 5000,
+      "monthly": 750
+    },
+    "AI Front Desk": {
+      "setup": 10000,
+      "monthly": 2000
+    },
+    "Command Center Retainer": {
+      "setup": 2500,
+      "monthly": 3500
+    }
+  },
+  "schoolSafeLinks": [
+    "./index.html",
+    "#strategy",
+    "#war",
+    "#demos",
+    "#crm",
+    "#pricing",
+    "./public-site/index.html",
+    "./vertical-demos/medspa.html",
+    "./vertical-demos/dental.html",
+    "./vertical-demos/home-services.html",
+    "./vertical-demos/legal.html",
+    "./vertical-demos/auto.html",
+    "./briefings/latest.md"
+  ]
+}

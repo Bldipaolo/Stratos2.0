@@ -1,11 +1,11 @@
 {
   "name": "Stratos AI Hermes Command Center",
-  "generatedAt": "2026-05-06T17:48:18",
+  "generatedAt": "2026-05-06T19:57:42",
   "entrypoints": [
     "index.html",
     "public-site/index.html"
   ],
-  "assetCount": 256,
+  "assetCount": 268,
   "assets": [
     ".gitignore",
     "DEPLOYMENT_CHECKLIST.md",
@@ -42,6 +42,7 @@
     "creative/higgsfield/source/.gitkeep",
     "data/automations.json",
     "data/leads.json",
+    "data/stratos_demo_site_system.json",
     "data/stratos_growth_system.json",
     "data/stratos_ops_library.json",
     "data/stratos_premium_ops.json",
@@ -217,6 +218,11 @@
     "marketing-assets/stratos-gpt2-premium-content-series/videos/reel_04_medspa-after-hours.mp4",
     "marketing-assets/stratos-gpt2-premium-content-series/videos/reel_05_booked-calls.mp4",
     "marketing-assets/stratos-gpt2-premium-content-series/videos/reel_06_clean-workflow.mp4",
+    "marketing-assets/vertical-demo-sites/auto-hero.png",
+    "marketing-assets/vertical-demo-sites/dental-hero.png",
+    "marketing-assets/vertical-demo-sites/home-services-hero.png",
+    "marketing-assets/vertical-demo-sites/legal-hero.png",
+    "marketing-assets/vertical-demo-sites/medspa-hero.png",
     "n8n/README.md",
     "n8n/guides/lead-to-close-room-router.md",
     "n8n/guides/medspa-consult-capture.md",
@@ -254,6 +260,7 @@
     "scripts/generate_close_rooms.py",
     "scripts/generate_demo_pages.py",
     "scripts/generate_morning_briefing.py",
+    "scripts/generate_vertical_demo_sites.py",
     "scripts/marketing/build_gpt2_premium_content_series.py",
     "scripts/marketing/refine_instagram_v2.py",
     "scripts/ollama_draft.py",
@@ -262,7 +269,12 @@
     "scripts/validate_dashboard.py",
     "styles.css",
     "test-dashboard.js",
-    "vercel.json"
+    "vercel.json",
+    "vertical-demos/auto.html",
+    "vertical-demos/dental.html",
+    "vertical-demos/home-services.html",
+    "vertical-demos/legal.html",
+    "vertical-demos/medspa.html"
   ],
   "deployNotes": [
     "Static/Vercel-friendly: no server required for dashboard/public site.",

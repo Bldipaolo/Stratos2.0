@@ -11,7 +11,8 @@ leads=json.loads((ROOT/'data'/'leads.json').read_text()); autos=json.loads((ROOT
 growth=json.loads((ROOT/'data'/'stratos_growth_system.json').read_text())
 premium=json.loads((ROOT/'data'/'stratos_premium_ops.json').read_text())
 ops=json.loads((ROOT/'data'/'stratos_ops_library.json').read_text())
-for label in ['Command Intelligence','Sales War Room v2','Today Action Board','Offer Ladder','Outreach Vault','Client Audit Generator','Close Room Templates','Content Repurposing','Case Study Templates','Usage Saver','Client Close Room','Strategy OS','n8n Automation Library','Ops Logistics']:
+demo_system=json.loads((ROOT/'data'/'stratos_demo_site_system.json').read_text())
+for label in ['Command Intelligence','Sales War Room v2','Today Action Board','Offer Ladder','Outreach Vault','Client Audit Generator','Close Room Templates','Content Repurposing','Case Study Templates','Usage Saver','Client Close Room','Strategy OS','n8n Automation Library','Ops Logistics','Persistent CRM Board','Vertical Demo Sites','Pricing / Scope Calculator','School-Safe Launch Page']:
     need(label in js, f'missing module label {label}')
 for l in leads:
     for key in ['id','business','industry','score','weaknesses','offer','angle','demo','estBookings','avgValue']:
@@ -29,12 +30,17 @@ need(len(premium.get('dealPackets',[]))>=4, 'expected premium vertical deal pack
 need(len(premium.get('higgsfieldStudio',{}).get('promptBank',[]))>=4, 'expected Higgsfield prompt bank')
 need(len(ops.get('n8nGuides',[]))>=4, 'expected >=4 n8n guides')
 need(len(ops.get('templates',[]))>=4, 'expected >=4 ops templates')
+need(len(demo_system.get('verticals',[]))==5, 'expected 5 premium vertical demos')
+for v in demo_system.get('verticals',[]):
+    need((ROOT/v['demoPath'].lstrip('./')).exists(), f"vertical demo missing: {v.get('slug')}")
+    need((ROOT/v['heroImage'].lstrip('./')).exists(), f"vertical hero missing: {v.get('slug')}")
 need('0 credits' in json.dumps(premium.get('higgsfieldStudio',{})), 'Higgsfield blocker/status must be explicit')
 need('app.js' in html and 'styles.css' in html, 'index missing assets')
 need('.usage-card' in css and '.quota-log' in css, 'missing usage saver CSS')
 need('.strategy-hero' in css and '.ops-lane' in css, 'missing Strategy OS CSS')
 need('.intel-hero' in css and '.lane-grid' in css, 'missing Command Intelligence CSS')
-for rel in ['public/index.html','public/app.js','public/styles.css','public/public-site/index.html','public/close-rooms/glamor-medical.html','public/STRATOS_DEPLOY_READY.txt','public-site/index.html','briefings/latest.md','dist/stratos-site-manifest.json','STRATOS_OPERATING_SYSTEM.md','STRATOS_RUNBOOK.md','DEPLOYMENT_CHECKLIST.md','STRATOS_TODAY_ACCELERATION.md','STRATOS_PREMIUM_REBUILD_BLUEPRINT.md','HIGGSFIELD_CREATIVE_STUDIO.md','data/stratos_growth_system.json','data/stratos_premium_ops.json','data/stratos_ops_library.json','n8n/README.md','operations/README.md','operations/DELIVERY_QA_CHECKLIST.md']:
+need('.vertical-demo-grid' in css and '.crm-board' in css and '.pricing-lab' in css, 'missing premium demo/CRM/pricing CSS')
+for rel in ['public/index.html','public/app.js','public/styles.css','public/public-site/index.html','public/close-rooms/glamor-medical.html','public/STRATOS_DEPLOY_READY.txt','public-site/index.html','briefings/latest.md','dist/stratos-site-manifest.json','STRATOS_OPERATING_SYSTEM.md','STRATOS_RUNBOOK.md','DEPLOYMENT_CHECKLIST.md','STRATOS_TODAY_ACCELERATION.md','STRATOS_PREMIUM_REBUILD_BLUEPRINT.md','HIGGSFIELD_CREATIVE_STUDIO.md','data/stratos_growth_system.json','data/stratos_premium_ops.json','data/stratos_ops_library.json','n8n/README.md','operations/README.md','operations/DELIVERY_QA_CHECKLIST.md','data/stratos_demo_site_system.json','scripts/generate_vertical_demo_sites.py','vertical-demos/medspa.html','marketing-assets/vertical-demo-sites/medspa-hero.png','public/vertical-demos/medspa.html','public/marketing-assets/vertical-demo-sites/medspa-hero.png']:
     need((ROOT/rel).exists(), f'missing {rel}')
 node = subprocess.run(['node','test-dashboard.js'], cwd=ROOT, text=True, capture_output=True)
 need(node.returncode==0, 'node dashboard test failed: '+(node.stderr or node.stdout)[:500])
