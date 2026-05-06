@@ -4,17 +4,17 @@ from pathlib import Path
 import json, time
 ROOT=Path(__file__).resolve().parents[1]
 dist=ROOT/'dist'; dist.mkdir(exist_ok=True)
-assets=[]
+assets=set()
 for folder in ['.', 'data', 'demos', 'pitch-kits', 'public-site', 'close-rooms', 'briefings']:
     base=ROOT/folder
     if not base.exists():
         continue
     for p in base.rglob('*'):
         rel = p.relative_to(ROOT)
-        ignored_parts = {'.git', 'dist', '__pycache__', '.vercel'}
+        ignored_parts = {'.git', 'dist', 'public', '__pycache__', '.vercel'}
         ignored_names = {'.DS_Store'}
         if p.is_file() and not (ignored_parts & set(rel.parts)) and p.name not in ignored_names:
-            assets.append(str(rel))
+            assets.add(str(rel))
 manifest={
     'name':'Stratos AI Hermes Command Center',
     'generatedAt':time.strftime('%Y-%m-%dT%H:%M:%S'),
