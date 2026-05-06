@@ -106,3 +106,13 @@ This regenerates:
 - Usage Saver: `http://localhost:8790/#usage`
 - Public site: `http://localhost:8790/public-site/index.html`
 - Example close room: `http://localhost:8790/close-rooms/glamor-medical.html`
+
+
+## Vercel output directory fix
+
+Vercel should use:
+
+- Build command: `python3 scripts/run_all.py`
+- Output directory: `public`
+
+The build command runs `scripts/export_vercel_public.py`, which creates `public/` with the command center, data, demos, public site, close rooms, briefings, and deploy manifest.

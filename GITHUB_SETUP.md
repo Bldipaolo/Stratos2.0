@@ -56,7 +56,7 @@ Settings:
 - Framework: Other
 - Root directory: project root
 - Build command: `python3 scripts/run_all.py`
-- Output directory: leave blank / project root
+- Output directory: `public`
 
 ## Public URLs after Vercel deploy
 

@@ -1,0 +1,1 @@
+Stratos AI static export ready. Entry: index.html

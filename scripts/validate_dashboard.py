@@ -21,7 +21,7 @@ need(len(autos)==8, 'expected 8 automations')
 need('app.js' in html and 'styles.css' in html, 'index missing assets')
 need('.usage-card' in css and '.quota-log' in css, 'missing usage saver CSS')
 need('.strategy-hero' in css and '.ops-lane' in css, 'missing Strategy OS CSS')
-for rel in ['public-site/index.html','briefings/latest.md','dist/stratos-site-manifest.json','STRATOS_OPERATING_SYSTEM.md','STRATOS_RUNBOOK.md','DEPLOYMENT_CHECKLIST.md']:
+for rel in ['public/index.html','public/app.js','public/styles.css','public/public-site/index.html','public/close-rooms/glamor-medical.html','public/STRATOS_DEPLOY_READY.txt','public-site/index.html','briefings/latest.md','dist/stratos-site-manifest.json','STRATOS_OPERATING_SYSTEM.md','STRATOS_RUNBOOK.md','DEPLOYMENT_CHECKLIST.md']:
     need((ROOT/rel).exists(), f'missing {rel}')
 node = subprocess.run(['node','test-dashboard.js'], cwd=ROOT, text=True, capture_output=True)
 need(node.returncode==0, 'node dashboard test failed: '+(node.stderr or node.stdout)[:500])

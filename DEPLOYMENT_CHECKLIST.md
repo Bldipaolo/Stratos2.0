@@ -61,4 +61,15 @@ Build command can be empty, or if a local prebuild is desired:
 python3 scripts/run_all.py
 ```
 
-Output directory can be the project root for static hosting.
+Output directory is `public`; `python3 scripts/run_all.py` creates it automatically for Vercel.
+
+
+## Vercel Output Directory
+
+Set Vercel Output Directory to:
+
+```text
+public
+```
+
+This is also encoded in `vercel.json` as `outputDirectory: public`.

@@ -10,6 +10,7 @@ steps=[
     ['Build public website', ['python3','scripts/build_public_site.py']],
     ['Generate morning briefing', ['python3','scripts/generate_morning_briefing.py']],
     ['Prepare deploy manifest', ['python3','scripts/deploy_prep.py']],
+    ['Export Vercel public directory', ['python3','scripts/export_vercel_public.py']],
     ['Validate dashboard', ['python3','scripts/validate_dashboard.py']],
 ]
 for label, cmd in steps:
