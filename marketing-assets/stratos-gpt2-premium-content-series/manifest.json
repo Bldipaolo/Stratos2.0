@@ -8,15 +8,21 @@
   "videos": 6,
   "final_type": "local deterministic overlays for exact Stratos typography",
   "palette": {
-    "background": [
-      "#041C44",
-      "#00167A"
+    "base": [
+      "#030605",
+      "#0A100D"
     ],
     "accent": [
-      "#00AEEF",
-      "#0081CC"
+      "#145838",
+      "#247E4F",
+      "#55AE74"
     ],
-    "text": "#FFFFFF"
+    "text": [
+      "#F8FAF6",
+      "#EEF0E8",
+      "#B8C6BC"
+    ],
+    "highlight": "#D3C7A0"
   },
   "quality_pass": [
     "removed visible day numbers",

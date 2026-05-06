@@ -4,9 +4,9 @@ Built from **6 GPT Image 2 OAuth source renders** with exact local Stratos typog
 
 ## Brand palette
 
-- Background: `#041C44` / `#00167A`
-- Accent: `#00AEEF` / `#0081CC`
-- Text: `#FFFFFF`
+- Base: near-black `#030605` / ink `#0A100D`
+- Accent: deep green `#145838`, green `#247E4F`, signal green `#55AE74`
+- Text: warm white `#F8FAF6`, cream `#EEF0E8`, muted sage `#B8C6BC`, restrained gold `#D3C7A0`
 
 ## Quality pass
 

@@ -64,7 +64,7 @@ function intelligence(){
   <div class="intel-scoreboard">
     <div class="intel-score primary"><span>Total pipeline</span><b>${fmt(totalPipe)}</b><small>Opportunity math from current lead board</small></div>
     <div class="intel-score"><span>Medspa wedge</span><b>${fmt(medPipe)}</b><small>Primary market attack lane</small></div>
-    <div class="intel-score"><span>GPT Image 2 OAuth</span><b>${p.higgsfieldStudio.oauthAssetPack?.successfulRenders||9} renders</b><small>${studio.contentSeries?.feedPosts||30} posts: blue/cyan/white, no day labels, measured overlays</small></div>
+    <div class="intel-score"><span>GPT Image 2 OAuth</span><b>${p.higgsfieldStudio.oauthAssetPack?.successfulRenders||9} renders</b><small>${studio.contentSeries?.feedPosts||30} posts: original green/black/cream palette, no day labels, measured overlays</small></div>
     <div class="intel-score"><span>Proof discipline</span><b>${p.proofLedger.statuses.length} stages</b><small>Demo → result guardrails embedded</small></div>
   </div>
   <div class="quality-wall">${p.positioning.qualityBar.map((q,i)=>`<div><span>Q${i+1}</span><p>${esc(q)}</p></div>`).join('')}</div>

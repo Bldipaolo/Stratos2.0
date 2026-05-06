@@ -158,10 +158,10 @@
     ]
   },
   "higgsfieldStudio": {
-    "currentStatus": "GPT Image 2 OAuth is now the primary Stratos premium creative route through Hermes openai-codex. Latest quality pass rebuilt the full content series with safer measured text boxes, removed visible day numbers, and switched all final overlays/gallery styling to the Stratos blue system: #041C44 / #00167A backgrounds, #00AEEF / #0081CC accents, and #FFFFFF text. Pack includes 30 feed posts, 12 stories, 20 carousel slides, and 6 motion covers. Higgsfield remains credit-blocked and reserved for future video/Marketing Studio. Higgsfield explicit status: authenticated free plan, 0 credits.",
+    "currentStatus": "GPT Image 2 OAuth is now the primary Stratos premium creative route through Hermes openai-codex. Latest quality pass rebuilt the full content series with safer measured text boxes, removed visible day numbers, and restored all final overlays/gallery styling to the original Stratos premium system: black/ink base, deep green accents, warm white/cream type, muted sage, and restrained gold. Pack includes 30 feed posts, 12 stories, 20 carousel slides, and 6 motion covers. Higgsfield remains credit-blocked and reserved for future video/Marketing Studio. Higgsfield explicit status: authenticated free plan, 0 credits.",
     "bestUseWhenCreditsReturn": [
       "Use GPT Image 2 OAuth first for static key art; reserve Higgsfield credits for video/Marketing Studio only.",
-      "Generate fewer stronger backgrounds, then locally composite Stratos typography and CTAs using the blue/cyan/white system.",
+      "Generate fewer stronger backgrounds, then locally composite Stratos typography and CTAs using the original green/black/cream system.",
       "Treat usage limits as a creative batch constraint: 3-5 high-confidence prompts per reset, not mass generation.",
       "Keep source images, final compositions, prompts, and QA notes together in marketing-assets/gpt-image-2-oauth/."
     ],
@@ -170,7 +170,7 @@
         "asset": "Premium content series source art",
         "model": "gpt-image-2-medium via openai-codex OAuth",
         "format": "1:1 + 9:16",
-        "post": "30 feed, 12 stories, 20 carousel slides, 6 motion covers with exact local overlays, no visible day numbers, blue/cyan/white palette"
+        "post": "30 feed, 12 stories, 20 carousel slides, 6 motion covers with exact local overlays, no visible day numbers, original green/black/cream palette"
       },
       {
         "asset": "Command room hero key art",
@@ -195,12 +195,12 @@
       {
         "name": "Medspa front desk key art",
         "model": "gpt_image_2",
-        "prompt": "Premium editorial ad key art for Stratos AI, boutique medspa front desk after hours, deep navy and royal blue environment with electric cyan signal accents and clean white space for typography overlay, a phone showing a consult request routed into an AI concierge workflow, cinematic lighting, realistic luxury clinic details, no fake logos, no readable tiny text, high-end agency aesthetic."
+        "prompt": "Premium editorial ad key art for Stratos AI, boutique medspa front desk after hours, near-black and ink-green environment with deep green signal accents and warm white/cream space for typography overlay, a phone showing a consult request routed into an AI concierge workflow, cinematic lighting, realistic luxury clinic details, no fake logos, no readable tiny text, high-end agency aesthetic."
       },
       {
         "name": "Disconnected systems brand visual",
         "model": "gpt_image_2",
-        "prompt": "Premium B2B operations visual for Stratos AI: fragmented local business tools represented as separate deep navy and royal blue glass panels connecting into one clean command flow, electric cyan signal lines, white negative space for overlay, no clutter, no fake brand marks, dramatic but minimal."
+        "prompt": "Premium B2B operations visual for Stratos AI: fragmented local business tools represented as separate near-black and ink-green glass panels connecting into one clean command flow, deep green signal lines, warm white/cream negative space for overlay, no clutter, no fake brand marks, dramatic but minimal."
       },
       {
         "name": "UGC founder pitch",
@@ -210,7 +210,7 @@
       {
         "name": "TV spot: website is the front desk",
         "model": "marketing_studio_video",
-        "prompt": "Polished commercial for Stratos AI showing a local business losing after-hours leads, then switching to a premium website plus AI intake and follow-up system. Modern #041C44/#00167A blue brand mood with #00AEEF/#0081CC accents and white type cards, serious, high-trust, no hype, end with: Your website should act like your best operator."
+        "prompt": "Polished commercial for Stratos AI showing a local business losing after-hours leads, then switching to a premium website plus AI intake and follow-up system. Modern black/ink Stratos mood with deep green accents, warm white/cream type cards, muted sage detail, and restrained gold highlights, serious, high-trust, no hype, end with: Your website should act like your best operator."
       }
     ],
     "oauthAssetPack": {
@@ -218,7 +218,7 @@
       "provider": "openai-codex",
       "model": "gpt-image-2-medium",
       "successfulRenders": 9,
-      "usageLimitNote": "9 GPT Image 2 OAuth renders shipped total: 3 original premium key-art renders plus 6 content-series source renders. Final campaign text/logo is locally composited for exact Stratos quality; latest content-series pass uses blue/cyan/white overlays and no visible day labels.",
+      "usageLimitNote": "9 GPT Image 2 OAuth renders shipped total: 3 original premium key-art renders plus 6 content-series source renders. Final campaign text/logo is locally composited for exact Stratos quality; latest content-series pass uses original green/black/cream overlays and no visible day labels.",
       "gallery": "./marketing-assets/gpt-image-2-oauth/index.html",
       "runbook": "./PREMIUM_GPT_IMAGE_2_OAUTH_ASSETS.md",
       "assets": [
@@ -252,17 +252,19 @@
       "zip": "./marketing-assets/stratos-gpt2-premium-content-series.zip",
       "manifest": "./marketing-assets/stratos-gpt2-premium-content-series/manifest.json",
       "preview": "./marketing-assets/stratos-gpt2-premium-content-series/PREVIEW_CONTACT_SHEET.jpg",
-      "qualityPass": "Rebuilt all posts, stories, carousels, and motion covers with measured text boxes, no visible day numbers, and palette #041C44/#00167A + #00AEEF/#0081CC + #FFFFFF.",
+      "qualityPass": "Rebuilt all posts, stories, carousels, and motion covers with measured text boxes, no visible day numbers, and original black/ink + green + cream/warm-white palette.",
       "palette": {
         "background": [
-          "#041C44",
-          "#00167A"
+          "#030605",
+          "#0A100D"
         ],
         "accent": [
-          "#00AEEF",
-          "#0081CC"
+          "#145838",
+          "#247E4F",
+          "#55AE74"
         ],
-        "text": "#FFFFFF"
+        "text": ["#F8FAF6", "#EEF0E8", "#B8C6BC"],
+        "highlight": "#D3C7A0"
       }
     }
   },
@@ -270,6 +272,6 @@
     "The project has strong static/Vercel bones: data, demos, close rooms, pitch kits, public export, usage saver, and cron-ready docs.",
     "The weakest area is perceived premium quality: too many surfaces describe systems instead of showing polished boardroom-grade flows.",
     "The next quality jump should be fewer better modules, stronger visual hierarchy, and proof/creative operations that enforce QA before assets ship.",
-    "GPT Image 2 OAuth is now verified beyond isolated key art: the repo contains a full premium content-series rebuild with generated source imagery, local exact overlays, QA, no visible day labels, blue/cyan/white palette, packaging, and public export wiring."
+    "GPT Image 2 OAuth is now verified beyond isolated key art: the repo contains a full premium content-series rebuild with generated source imagery, local exact overlays, QA, no visible day labels, original green/black/cream palette, packaging, and public export wiring."
   ]
 }
