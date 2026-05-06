@@ -6,7 +6,7 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'public'
 
-INCLUDE_FILES = ['index.html', 'app.js', 'styles.css']
+INCLUDE_FILES = ['index.html', 'app.js', 'styles.css', 'STRATOS_PREMIUM_REBUILD_BLUEPRINT.md', 'HIGGSFIELD_CREATIVE_STUDIO.md']
 INCLUDE_DIRS = ['data', 'demos', 'public-site', 'close-rooms', 'pitch-kits', 'briefings', 'dist']
 IGNORE_NAMES = {'.DS_Store'}
 IGNORE_PARTS = {'.git', '__pycache__', '.vercel'}

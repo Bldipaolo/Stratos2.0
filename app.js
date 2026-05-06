@@ -1,25 +1,26 @@
 const MODULES = [
   ['strategy','00','Strategy OS'],
-  ['today','01','Today Action Board'],
-  ['war','02','Sales War Room v2'],
-  ['offers','03','Offer Ladder'],
-  ['outreach','04','Outreach Vault'],
-  ['medspa','05','MedSpa Campaign'],
-  ['audit','06','Client Audit Generator'],
-  ['closeTemplates','07','Close Room Templates'],
-  ['demos','08','Demo Gallery'],
-  ['repurpose','09','Content Repurposing'],
-  ['cases','10','Case Study Templates'],
-  ['pitch','11','One-Click Pitch Packs'],
-  ['workflow','12','Audit → Demo → Pitch'],
-  ['revenue','13','Revenue Forecast Simulator'],
-  ['briefing','14','Morning Briefing'],
-  ['proof','15','Proof Vault'],
-  ['portfolio','16','Public Portfolio Page'],
-  ['close','17','Client Close Room'],
+  ['intelligence','01','Command Intelligence'],
+  ['today','02','Today Action Board'],
+  ['war','03','Sales War Room v2'],
+  ['offers','04','Offer Ladder'],
+  ['outreach','05','Outreach Vault'],
+  ['medspa','06','MedSpa Campaign'],
+  ['audit','07','Client Audit Generator'],
+  ['closeTemplates','08','Close Room Templates'],
+  ['demos','09','Demo Gallery'],
+  ['repurpose','10','Content Repurposing'],
+  ['cases','11','Case Study Templates'],
+  ['pitch','12','One-Click Pitch Packs'],
+  ['workflow','13','Audit → Demo → Pitch'],
+  ['revenue','14','Revenue Forecast Simulator'],
+  ['briefing','15','Morning Briefing'],
+  ['proof','16','Proof Vault'],
+  ['portfolio','17','Public Portfolio Page'],
+  ['close','18','Client Close Room'],
   ['usage','∞','Usage Saver']
 ];
-const state={leads:[], automations:[], growth:null, active:'strategy', selected:null};
+const state={leads:[], automations:[], growth:null, premium:null, active:'strategy', selected:null};
 const $=s=>document.querySelector(s);
 const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -28,6 +29,7 @@ async function init(){
   state.leads=await fetch('./data/leads.json').then(r=>r.json());
   state.automations=await fetch('./data/automations.json').then(r=>r.json());
   state.growth=await fetch('./data/stratos_growth_system.json').then(r=>r.json());
+  state.premium=await fetch('./data/stratos_premium_ops.json').then(r=>r.json());
   state.selected=state.leads.slice().sort((a,b)=>b.score-a.score)[0];
   renderNav(); route(location.hash.replace('#','')||'strategy');
   window.addEventListener('hashchange',()=>route(location.hash.replace('#','')||'strategy'));
@@ -35,7 +37,7 @@ async function init(){
   $('#exportBtn').onclick=exportSnapshot;
 }
 function renderNav(){ $('#nav').innerHTML=MODULES.map(([id,num,name])=>`<button class="nav-btn" data-id="${id}"><span>${name}</span><small>${num}</small></button>`).join(''); document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id}); }
-function route(id){state.active=id; document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id)); const mod=MODULES.find(m=>m[0]===id)||MODULES[0]; $('#pageTitle').textContent=mod[2]; ({strategy,today,war,offers,outreach,medspa,audit,closeTemplates,demos,repurpose,cases,pitch,workflow,revenue,briefing,proof,portfolio,close,usage}[mod[0]]||strategy)();}
+function route(id){state.active=id; document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id)); const mod=MODULES.find(m=>m[0]===id)||MODULES[0]; $('#pageTitle').textContent=mod[2]; ({strategy,intelligence,today,war,offers,outreach,medspa,audit,closeTemplates,demos,repurpose,cases,pitch,workflow,revenue,briefing,proof,portfolio,close,usage}[mod[0]]||strategy)();}
 function metrics(){const leads=state.leads, hot=leads.filter(l=>l.score>=88).length, pipe=leads.reduce((a,l)=>a+l.estBookings*l.avgValue,0); return `<div class="grid cols-4"><div class="card metric"><span>Total Leads</span><b>${leads.length}</b></div><div class="card metric"><span>Hot Leads 88+</span><b>${hot}</b></div><div class="card metric"><span>Projected Upside</span><b>${fmt(pipe)}</b></div><div class="card metric"><span>Execution Mode</span><b>Local-first</b></div></div>`}
 function leadOptions(){return state.leads.map(l=>`<option value="${l.id}">${esc(l.business)} · ${esc(l.industry)} · ${l.score}</option>`).join('')}
 function selectLead(id){state.selected=state.leads.find(l=>l.id===id)||state.leads[0]}
@@ -46,6 +48,33 @@ function strategy(){
  const commands=[['Full rebuild/test','python3 scripts/run_all.py'],['Public site only','python3 scripts/build_public_site.py'],['Close rooms','python3 scripts/generate_close_rooms.py'],['Morning briefing','python3 scripts/generate_morning_briefing.py'],['Deploy manifest','python3 scripts/deploy_prep.py'],['Local Hermes draft',`hermes -p stratos-local chat -t terminal,file -q "Using /Users/bradleydipaolo/stratos-ai/hermes-command-center, draft outreach for ${top[0].business} and save it under local-ai-drafts/."`]];
  $('#app').innerHTML=metrics()+`<section class="strategy-hero"><p class="eyebrow">Integrated agency operating system</p><h2>One hub for command center, public website, demos, pitch kits, close rooms, local AI, and deploy prep.</h2><p>The default path is local-first and script-first: use zero-model generators for repeatable production, local Ollama for rough content, and Codex only for premium architecture/final review.</p><div class="strategy-actions"><button onclick="location.hash='war'">Work leads</button><button onclick="location.hash='usage'">Open Usage Saver</button><a href="./public-site/index.html">Public website</a></div></section><div class="grid cols-5 ops-grid">${ops.map((o,i)=>`<div class="card ops-lane"><em>0${i+1}</em><h2>${o[0]}</h2><p class="muted">${o[1]}</p></div>`).join('')}</div><div class="split"><div class="card"><h2>Next three money moves</h2>${top.map((l,i)=>`<div class="proof-item"><div class="proof-dot"></div><div><b>${i+1}. ${esc(l.business)}</b><br><span class="muted">${esc(l.offer)} · ${fmt(l.estBookings*l.avgValue)}/mo upside · <a href="./close-rooms/${l.id}.html">close room</a></span></div></div>`).join('')}</div><div class="card"><h2>Full-system commands</h2><p class="muted">These wire command centers, websites, demos, briefings, and deploy assets together.</p>${commands.map(([label,cmd])=>`<div class="cmd-row"><div><b>${label}</b><code>${esc(cmd)}</code></div><button onclick="copy('${cmd.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div></div>`;
 }
+
+function intelligence(){
+ const p=state.premium, top=state.leads.slice().sort((a,b)=>(b.score-a.score)||(upside(b)-upside(a))).slice(0,4);
+ const lanes=p.operatingSystem;
+ const packets=p.dealPackets;
+ const studio=p.higgsfieldStudio;
+ const totalPipe=state.leads.reduce((a,l)=>a+upside(l),0);
+ const medPipe=state.leads.filter(l=>l.industry==='Medspa').reduce((a,l)=>a+upside(l),0);
+ $('#app').innerHTML=`<section class="intel-shell">
+  <div class="intel-hero">
+    <div><p class="eyebrow">Premier rebuild layer</p><h2>The revenue command room for Stratos.</h2><p>${esc(p.positioning.coreThesis)}</p><div class="intel-actions"><button onclick="location.hash='war'">Work pipeline</button><button onclick="location.hash='outreach'">Send outreach</button><a href="./STRATOS_PREMIUM_REBUILD_BLUEPRINT.md">Blueprint</a><a href="./HIGGSFIELD_CREATIVE_STUDIO.md">Higgsfield studio</a></div></div>
+    <aside class="intel-verdict"><span>Current verdict</span><b>Strong bones. Premium layer still matters.</b><small>${esc(p.repoAuditFindings[1])}</small><div class="verdict-list"><div><strong>Next sale</strong><em>Medspa concierge</em></div><div><strong>Creative</strong><em>Credit-blocked, prompts ready</em></div><div><strong>Ship mode</strong><em>Static / Vercel-safe</em></div></div></aside>
+  </div>
+  <div class="intel-scoreboard">
+    <div class="intel-score primary"><span>Total pipeline</span><b>${fmt(totalPipe)}</b><small>Opportunity math from current lead board</small></div>
+    <div class="intel-score"><span>Medspa wedge</span><b>${fmt(medPipe)}</b><small>Primary market attack lane</small></div>
+    <div class="intel-score"><span>Higgsfield</span><b>0 credits</b><small>Ready-to-run studio prepared; generation blocked</small></div>
+    <div class="intel-score"><span>Proof discipline</span><b>${p.proofLedger.statuses.length} stages</b><small>Demo → result guardrails embedded</small></div>
+  </div>
+  <div class="quality-wall">${p.positioning.qualityBar.map((q,i)=>`<div><span>Q${i+1}</span><p>${esc(q)}</p></div>`).join('')}</div>
+  <div class="section-title"><h2>Operating lanes</h2><p>Every module now rolls up into one of these command lanes.</p></div>
+  <div class="lane-grid">${lanes.map(l=>`<article class="lane-card"><p class="eyebrow">${esc(l.lane)}</p><h2>${esc(l.goal)}</h2><ul>${l.dailyMoves.slice(0,3).map(m=>`<li>${esc(m)}</li>`).join('')}</ul><div class="lane-metric"><b>Measure</b><span>${esc(l.ownerMetric)}</span></div><details class="failure-mode"><summary>Failure mode</summary><span>${esc(l.failureMode)}</span></details></article>`).join('')}</div>
+  <div class="split premium-split"><div class="card deal-command"><h2>Deal packet router</h2><p class="muted">Use these as the prospect-specific sales spine before writing anything custom.</p>${packets.map(d=>`<details class="deal-packet"><summary><span>${esc(d.vertical)}</span><b>${esc(d.flagshipOffer)}</b><em>${esc(d.recommendedPackage)}</em></summary><p>${esc(d.firstTouch)}</p><div class="trigger-list">${d.triggerSignals.map(s=>`<span>${esc(s)}</span>`).join('')}</div><div class="sales-line">${esc(d.closeRoomPromise)}</div></details>`).join('')}</div><div class="card"><h2>Today’s boardroom targets</h2>${top.map((l,i)=>`<div class="boardroom-target"><span>${String(i+1).padStart(2,'0')}</span><div><b>${esc(l.business)}</b><p>${esc(l.industry)} · ${fmt(upside(l))}/mo upside · ${esc(l.angle)}</p></div><button onclick="selectLead('${l.id}'); location.hash='audit'">Audit</button></div>`).join('')}</div></div>
+  <div class="split premium-split"><div class="card proof-rules"><h2>Proof ledger rules</h2>${p.proofLedger.rules.map(r=>`<div class="proof-rule">${esc(r)}</div>`).join('')}<h3>Capture checklist</h3><div class="trigger-list">${p.proofLedger.captureChecklist.map(x=>`<span>${esc(x)}</span>`).join('')}</div></div><div class="card higgs-panel"><h2>Higgsfield Studio</h2><p class="muted">${esc(studio.currentStatus)}</p>${studio.modelPlan.map(m=>`<div class="model-plan"><b>${esc(m.asset)}</b><span>${esc(m.model)} · ${esc(m.format)}</span><small>${esc(m.post)}</small></div>`).join('')}<button onclick="location.hash='repurpose'">Use content engine</button></div></div>
+ </section>`;
+}
+
 function upside(l){return (l.estBookings||0)*(l.avgValue||0)}
 function industryStats(){
  const map={}; state.leads.forEach(l=>{map[l.industry]=map[l.industry]||{count:0,upside:0,score:0}; map[l.industry].count++; map[l.industry].upside+=upside(l); map[l.industry].score+=l.score;});

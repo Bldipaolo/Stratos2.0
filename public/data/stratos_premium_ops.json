@@ -1,0 +1,141 @@
+{
+  "version": "premium-ops-2026-05-06",
+  "positioning": {
+    "coreThesis": "Stratos is not a website shop. It is a local-business revenue operations layer: premium front-end, conversion paths, AI intake, follow-up, proof, and owner visibility in one operating system.",
+    "buyerPromise": "If a lead touches the business through web, phone, form, DM, or after-hours intent, Stratos makes the next step clearer, faster, and less dependent on manual staff bandwidth.",
+    "qualityBar": [
+      "Every surface must answer: what decision does this help Bradley make or what sale does it help close?",
+      "Every client-facing claim must be proof-backed, demo-labeled, or explicitly projected.",
+      "Every creative asset must be phone-readable, logo-safe, and locally composited when text accuracy matters.",
+      "Every recurring task should be script/local-model first before spending premium model calls."
+    ]
+  },
+  "operatingSystem": [
+    {
+      "lane": "Pipeline Command",
+      "goal": "Create conversations with high-value Boca businesses every week.",
+      "dailyMoves": ["Pick 3 targets from score + upside", "Run audit generator", "Send DM/email first touch", "Log response status", "Attach close-room only after interest"],
+      "ownerMetric": "Qualified conversations opened per week",
+      "failureMode": "Building more assets while no outreach leaves the system."
+    },
+    {
+      "lane": "Offer Command",
+      "goal": "Route every prospect into a named package instead of custom chaos.",
+      "dailyMoves": ["Choose Launch/Growth/AI Front Desk/Retainer", "Anchor outcome not deliverables", "Use ROI simulator", "Send close-room with one recommended next step"],
+      "ownerMetric": "Proposal clarity and close-room sends",
+      "failureMode": "Selling 'websites + AI' vaguely instead of an obvious system."
+    },
+    {
+      "lane": "Proof Command",
+      "goal": "Turn demos, audits, screenshots, and client outcomes into reusable trust assets.",
+      "dailyMoves": ["Capture before screenshot", "Capture Stratos fix", "Label demo vs real", "Add proof vault note", "Repurpose into case-study block"],
+      "ownerMetric": "Proof artifacts added per week",
+      "failureMode": "Talking about capability without visual evidence."
+    },
+    {
+      "lane": "Creative Command",
+      "goal": "Make Stratos look premium enough to justify premium offers.",
+      "dailyMoves": ["Use Higgsfield only for high-leverage key art/video", "Composite typography/logo locally", "Vision QA before publishing", "Package source + final + prompt"],
+      "ownerMetric": "Publishable assets, not generations attempted",
+      "failureMode": "AI-ish templates, fake text, warped UI, repeated blobs."
+    },
+    {
+      "lane": "Delivery Command",
+      "goal": "Keep the Vercel/public/static path reliable from locked-down school computers.",
+      "dailyMoves": ["Run full pipeline", "Validate public export", "Check GitHub remote", "Inspect Vercel-ready files", "Keep secrets out of repo"],
+      "ownerMetric": "Main branch deployable at all times",
+      "failureMode": "Local-only improvements that never reach the public hub."
+    }
+  ],
+  "dealPackets": [
+    {
+      "vertical": "Medspa",
+      "flagshipOffer": "AI Consult Concierge",
+      "triggerSignals": ["Botox/laser/body-contouring services buried in menus", "Instagram sends traffic but site does not route consult intent", "After-hours visitors get no immediate path", "Proof/reviews are not placed near booking decisions"],
+      "firstTouch": "Your site should feel as premium as the treatment room — and it should capture consult intent even after hours.",
+      "demoAngle": "Treatment recommender + consult capture + proof sequencing + follow-up.",
+      "closeRoomPromise": "Turn high-intent aesthetic browsing into booked consult requests with a premium front door and immediate follow-up.",
+      "recommendedPackage": "AI Front Desk"
+    },
+    {
+      "vertical": "Dental",
+      "flagshipOffer": "New Patient Capture Engine",
+      "triggerSignals": ["Insurance/financing questions slow conversion", "Emergency/new-patient CTAs compete", "Reviews are passive instead of decision-support", "Missed calls can turn into competitors"],
+      "firstTouch": "New patients compare fast — the site should answer objections and make booking obvious before they call another office.",
+      "demoAngle": "New-patient path + insurance answers + missed-call text-back + review engine.",
+      "closeRoomPromise": "Capture more new-patient demand with clearer service paths and immediate follow-up.",
+      "recommendedPackage": "Growth Site"
+    },
+    {
+      "vertical": "Home Services",
+      "flagshipOffer": "Emergency Job Recovery System",
+      "triggerSignals": ["Emergency demand is time-sensitive", "Mobile click-to-call is weak", "Estimate requests are too slow", "Seasonal tune-up opportunities are not nurtured"],
+      "firstTouch": "For urgent jobs, the first company to respond clearly usually wins.",
+      "demoAngle": "Emergency CTA + missed-call recovery + quote intake + maintenance nurture.",
+      "closeRoomPromise": "Recover more emergency and estimate demand before it leaks to faster competitors.",
+      "recommendedPackage": "AI Front Desk"
+    },
+    {
+      "vertical": "Legal",
+      "flagshipOffer": "Urgent Intake Command Room",
+      "triggerSignals": ["Case-type routing is unclear", "Urgency is not captured early", "Trust proof is buried", "Consult requests depend on slow manual follow-up"],
+      "firstTouch": "People with urgent legal questions need a clear intake path, not a generic contact page.",
+      "demoAngle": "Case routing + urgency capture + trust sequencing + consult request follow-up.",
+      "closeRoomPromise": "Make high-intent case intake clearer, faster, and easier to respond to.",
+      "recommendedPackage": "Command Center Retainer"
+    }
+  ],
+  "proofLedger": {
+    "statuses": ["Demo concept", "Audit captured", "Prospect sent", "Response received", "Client result"],
+    "rules": [
+      "Demo concepts can show workflow value but cannot imply client performance.",
+      "Projected upside must be framed as opportunity math, not guaranteed revenue.",
+      "Real client results need source date, screenshot/file, and context before use in marketing.",
+      "Outbound proof should start with before/after process, not unsupported numeric claims."
+    ],
+    "captureChecklist": ["Before website screenshot", "Stratos demo/close-room screenshot", "Pain note", "Recommended fix", "Sent channel", "Outcome", "Reusable quote/result if real"]
+  },
+  "higgsfieldStudio": {
+    "currentStatus": "Authenticated but credit-blocked at last check: free plan, 0 credits. Do not promise new renders until credits are available.",
+    "bestUseWhenCreditsReturn": [
+      "Generate 3 reusable cinematic key-art backgrounds for medspa/dental/home-service campaigns.",
+      "Generate 2 vertical Marketing Studio UGC presenter ads for Stratos itself.",
+      "Generate 1 polished TV-spot style Stratos brand video.",
+      "Avoid generated text/logo in final frames; composite final Stratos logo and captions locally."
+    ],
+    "modelPlan": [
+      {"asset": "premium static ad key art", "model": "gpt_image_2", "format": "1:1 and 9:16", "post": "local logo/headline composition"},
+      {"asset": "cinematic operator visuals", "model": "soul_cinema or cinema studio image", "format": "16:9", "post": "crop into site hero backgrounds"},
+      {"asset": "UGC-style ad video", "model": "marketing_studio_video", "format": "9:16, 720p, audio", "post": "brand intro/outro card"},
+      {"asset": "serious product motion", "model": "seedance_2_0", "format": "9:16 or 16:9", "post": "caption overlay and CTA card"}
+    ],
+    "promptBank": [
+      {
+        "name": "Medspa front desk key art",
+        "model": "gpt_image_2",
+        "prompt": "Premium editorial ad key art for Stratos AI, boutique medspa front desk after hours, elegant dark forest-green and warm-white palette, a phone showing a consult request routed into an AI concierge workflow, cinematic lighting, realistic luxury clinic details, no fake logos, no readable tiny text, high-end agency aesthetic, space for headline overlay."
+      },
+      {
+        "name": "Disconnected systems brand visual",
+        "model": "gpt_image_2",
+        "prompt": "Premium B2B operations visual for Stratos AI: fragmented local business tools represented as separate dark glass panels slowly connecting into one clean command flow, forest green signal lines, black and off-white palette, no clutter, no fake brand marks, dramatic but minimal, room for typography overlay."
+      },
+      {
+        "name": "UGC founder pitch",
+        "model": "marketing_studio_video",
+        "prompt": "A confident young agency founder explains that most local businesses do not need another generic website; they need their website, missed calls, forms, and follow-up connected into one revenue system. Premium but natural, direct-to-camera, Boca Raton local-business context, clear CTA: DM 'front desk' for a quick audit."
+      },
+      {
+        "name": "TV spot: website is the front desk",
+        "model": "marketing_studio_video",
+        "prompt": "Polished commercial for Stratos AI showing a local business losing after-hours leads, then switching to a premium website plus AI intake and follow-up system. Modern forest-green/black/white brand mood, serious, high-trust, no hype, end with: Your website should act like your best operator."
+      }
+    ]
+  },
+  "repoAuditFindings": [
+    "The project has strong static/Vercel bones: data, demos, close rooms, pitch kits, public export, usage saver, and cron-ready docs.",
+    "The weakest area is perceived premium quality: too many surfaces describe systems instead of showing polished boardroom-grade flows.",
+    "The next quality jump should be fewer better modules, stronger visual hierarchy, and proof/creative operations that enforce QA before assets ship.",
+    "Higgsfield is installed and authenticated, but credits are currently 0; the repo now needs a ready-to-run creative studio rather than pretending renders are available."
+  ]
+}
