@@ -1,0 +1,9 @@
+{
+  "feed_posts": 30,
+  "stories": 12,
+  "carousel_slides": 20,
+  "videos": 6,
+  "higgsfield_premium_images": 1,
+  "openai_image_backend": "unavailable_missing_FAL_KEY",
+  "higgsfield_status": "credit-limited after one GPT Image 2 generation"
+}
