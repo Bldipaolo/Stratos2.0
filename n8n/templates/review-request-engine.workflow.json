@@ -1,0 +1,127 @@
+{
+  "name": "Stratos - Review Request Engine",
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "notes": "Stratos template. Replace placeholders and credentials inside n8n only. Do not commit secrets.",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "REPLACE_WITH_CLIENT_WEBHOOK_PATH",
+        "httpMethod": "POST",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook",
+      "name": "Completed Appointment Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": false,
+        "values": {
+          "string": [
+            {
+              "name": "source",
+              "value": "stratos_template"
+            },
+            {
+              "name": "status",
+              "value": "new"
+            }
+          ]
+        }
+      },
+      "id": "normalize",
+      "name": "Normalize Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.urgency || 'normal'}}",
+              "operation": "contains",
+              "value2": "urgent"
+            }
+          ]
+        }
+      },
+      "id": "if",
+      "name": "Urgency / Routing Gate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.example.com/notify-team",
+        "method": "POST",
+        "sendBody": true,
+        "jsonBody": "={{$json}}"
+      },
+      "id": "notify",
+      "name": "Team Alert Placeholder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        720,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": "REPLACE_WITH_SHEET_ID",
+        "sheetName": "Leads",
+        "columns": {
+          "mappingMode": "autoMapInputData"
+        }
+      },
+      "id": "sheet",
+      "name": "Lead Log Placeholder",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        720,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.rating || 'unknown'}}",
+              "operation": "contains",
+              "value2": "unhappy"
+            }
+          ]
+        }
+      },
+      "id": "feedback",
+      "name": "Private Feedback Gate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        960,
+        0
+      ]
+    }
+  ],
+  "connections": {}
+}

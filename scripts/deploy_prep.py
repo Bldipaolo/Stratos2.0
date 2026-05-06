@@ -5,7 +5,7 @@ import json, time
 ROOT=Path(__file__).resolve().parents[1]
 dist=ROOT/'dist'; dist.mkdir(exist_ok=True)
 assets=set()
-for folder in ['.', 'data', 'demos', 'pitch-kits', 'public-site', 'close-rooms', 'briefings']:
+for folder in ['.', 'data', 'demos', 'pitch-kits', 'public-site', 'close-rooms', 'briefings', 'n8n', 'operations']:
     base=ROOT/folder
     if not base.exists():
         continue

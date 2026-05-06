@@ -1,0 +1,139 @@
+{
+  "version": "stratos-ops-library-2026-05-06",
+  "n8nGuides": [
+    {
+      "name": "Medspa Consult Capture",
+      "vertical": "Medspa",
+      "file": "./n8n/guides/medspa-consult-capture.md",
+      "template": "./n8n/templates/medspa-consult-capture.workflow.json",
+      "trigger": "Website form or treatment quiz submission",
+      "outcome": "Route treatment interest into instant acknowledgment, qualification, staff alert, and follow-up.",
+      "nodes": [
+        "Webhook",
+        "Normalize Lead",
+        "Treatment Router",
+        "Staff Alert",
+        "Lead Log",
+        "Follow-up Delay",
+        "No-response Reminder"
+      ],
+      "sellLine": "This turns treatment browsing into a concierge path instead of a generic contact form."
+    },
+    {
+      "name": "Missed-Call Text-Back",
+      "vertical": "Dental / Home Services / Legal",
+      "file": "./n8n/guides/missed-call-text-back.md",
+      "template": "./n8n/templates/missed-call-text-back.workflow.json",
+      "trigger": "Missed-call webhook from phone provider",
+      "outcome": "Send immediate text-back, capture urgency, notify team, and log the opportunity.",
+      "nodes": [
+        "Webhook",
+        "Classify Urgency",
+        "Text-Back",
+        "Team Notification",
+        "CRM/Sheet Log",
+        "Owner Summary"
+      ],
+      "sellLine": "The fastest practical AI win: recover leads when staff is busy or after hours."
+    },
+    {
+      "name": "Review Request Engine",
+      "vertical": "All local services",
+      "file": "./n8n/guides/review-request-engine.md",
+      "template": "./n8n/templates/review-request-engine.workflow.json",
+      "trigger": "Completed appointment/job/case milestone",
+      "outcome": "Send timed review requests, branch unhappy feedback privately, and feed proof vault.",
+      "nodes": [
+        "Webhook",
+        "Eligibility Gate",
+        "SMS/Email Request",
+        "Feedback Branch",
+        "Proof Log",
+        "Follow-up Reminder"
+      ],
+      "sellLine": "More reviews without begging manually \u2014 with unhappy feedback routed before it becomes public."
+    },
+    {
+      "name": "Lead-to-Close Room Router",
+      "vertical": "Stratos internal sales",
+      "file": "./n8n/guides/lead-to-close-room-router.md",
+      "template": "./n8n/templates/lead-to-close-room-router.workflow.json",
+      "trigger": "New qualified lead added to Stratos board",
+      "outcome": "Create the next-best-action packet: audit checklist, offer tier, close-room link, and first-touch copy.",
+      "nodes": [
+        "Manual/Webhook Trigger",
+        "Score Router",
+        "Offer Mapper",
+        "Create Task",
+        "Send Briefing",
+        "Log Status"
+      ],
+      "sellLine": "This keeps Bradley focused on the next revenue action instead of hunting through files."
+    }
+  ],
+  "templates": [
+    {
+      "name": "Client Intake Snapshot",
+      "file": "./operations/templates/client-intake-snapshot.md",
+      "use": "Capture the exact info needed before proposing/building.",
+      "owner": "Bradley"
+    },
+    {
+      "name": "Automation Scope Sheet",
+      "file": "./operations/templates/automation-scope-sheet.md",
+      "use": "Define triggers, systems, fallback behavior, and proof before touching n8n.",
+      "owner": "Hermes + Bradley"
+    },
+    {
+      "name": "Launch QA Checklist",
+      "file": "./operations/DELIVERY_QA_CHECKLIST.md",
+      "use": "Prevent broken mobile CTAs, fake claims, missing tracking, and messy handoff.",
+      "owner": "Hermes"
+    },
+    {
+      "name": "Proof Ledger CSV",
+      "file": "./operations/templates/proof-ledger-template.csv",
+      "use": "Track demo/projection/client-result evidence cleanly.",
+      "owner": "Bradley"
+    }
+  ],
+  "logistics": [
+    {
+      "lane": "Pre-sale",
+      "cadence": "Daily",
+      "action": "Pick 3 targets, run audit checklist, send one specific opener, log status.",
+      "artifact": "Pitch kit + close room link"
+    },
+    {
+      "lane": "Discovery",
+      "cadence": "Per opportunity",
+      "action": "Complete client intake snapshot and automation scope sheet before quoting integrations.",
+      "artifact": "Signed scope-ready notes"
+    },
+    {
+      "lane": "Build",
+      "cadence": "Per client",
+      "action": "Start from website conversion map, then add n8n workflows only where the trigger/outcome is obvious.",
+      "artifact": "Vercel preview + n8n workflow draft"
+    },
+    {
+      "lane": "QA",
+      "cadence": "Before launch",
+      "action": "Run mobile CTA, form, webhook, notification, fallback, analytics, and proof-claim checks.",
+      "artifact": "Delivery QA checklist"
+    },
+    {
+      "lane": "Retention",
+      "cadence": "Weekly",
+      "action": "Send owner summary: leads captured, missed calls recovered, reviews requested, bottlenecks, next optimization.",
+      "artifact": "Weekly operator report"
+    }
+  ],
+  "nextBuildIdeas": [
+    "Add a lightweight CRM status JSON so the War Room can persist contacted/responded/won states.",
+    "Generate one n8n workflow per vertical and include a client-facing diagram page for each.",
+    "Add a quote calculator that maps offer tier + automation complexity into setup/monthly pricing.",
+    "Build a screenshot-proof vault that saves before/after image paths with claim guardrails.",
+    "Create a school-safe Vercel deployment page with one-click links to the exact public assets Bradley needs."
+  ]
+}
