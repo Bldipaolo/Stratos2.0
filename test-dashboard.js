@@ -7,7 +7,7 @@ const css = fs.readFileSync(path.join(root,'styles.css'),'utf8');
 const js = fs.readFileSync(path.join(root,'app.js'),'utf8');
 const leads = JSON.parse(fs.readFileSync(path.join(root,'data','leads.json'),'utf8'));
 const autos = JSON.parse(fs.readFileSync(path.join(root,'data','automations.json'),'utf8'));
-['Boca Lead War Room','Hyper-Specific Demo Sites','One-Click Outreach Packs','Audit → Demo → Pitch','MedSpa Domination Pack','Revenue Forecast Simulator','Morning Briefing','Proof Vault','Public Portfolio Page','Client Close Room','Usage Saver','Strategy OS'].forEach(label=> assert(js.includes(label), `missing module ${label}`));
+['Sales War Room v2','Demo Gallery','One-Click Pitch Packs','Audit → Demo → Pitch','MedSpa Campaign','Revenue Forecast Simulator','Morning Briefing','Proof Vault','Public Portfolio Page','Client Close Room','Usage Saver','Strategy OS','Today Action Board','Offer Ladder','Outreach Vault','Client Audit Generator','Close Room Templates','Content Repurposing','Case Study Templates'].forEach(label=> assert(js.includes(label), `missing module ${label}`));
 assert(html.includes('styles.css') && html.includes('app.js'), 'index does not load assets');
 assert(css.includes('@media(max-width:980px)'), 'missing responsive CSS');
 assert(css.includes('.usage-card') && css.includes('.quota-log'), 'missing usage saver CSS');

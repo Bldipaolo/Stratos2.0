@@ -1,0 +1,172 @@
+{
+  "todayMoves": [
+    {
+      "title": "Package the 3-tier offer ladder",
+      "owner": "Bradley",
+      "priority": "Revenue critical",
+      "timebox": "45 min",
+      "outcome": "Every prospect can be routed to a clear Launch, Growth, or Command offer without custom pricing confusion.",
+      "actions": [
+        "Use the $3k Launch Site for fast trust-building projects.",
+        "Use the $5k Growth Site when the business has leads but weak capture/follow-up.",
+        "Use the $10k AI Front Desk when missed calls, intake, or booking friction is obvious."
+      ],
+      "proof": "Offer ladder is now embedded in Command Center under Offers."
+    },
+    {
+      "title": "Run the medspa wedge campaign",
+      "owner": "Bradley + Hermes",
+      "priority": "First vertical focus",
+      "timebox": "90 min",
+      "outcome": "Send high-specificity messages to Boca medspas using consult capture, AI concierge, and premium treatment funnel angles.",
+      "actions": [
+        "Start with Glamor Medical, Better Me Medical Spa, Elite Medical SPA, and Boca Med Spa.",
+        "Attach the medspa demo/close-room where relevant.",
+        "Ask for permission to send a 60-second preview, not for a meeting first."
+      ],
+      "proof": "Medspa campaign pack includes pain signals, hooks, audit points, and follow-up plan."
+    },
+    {
+      "title": "Send 10 precision first touches",
+      "owner": "Bradley",
+      "priority": "Pipeline creation",
+      "timebox": "60 min",
+      "outcome": "Start real conversations without pretending results exist yet.",
+      "actions": [
+        "Use the Outreach Vault's short DM opener first.",
+        "If they respond, send close room/demo link.",
+        "Log status manually in the War Room until a CRM backend exists."
+      ],
+      "proof": "Outreach scripts are ready by vertical and channel."
+    },
+    {
+      "title": "Create one vertical-specific Loom audit",
+      "owner": "Bradley",
+      "priority": "Trust builder",
+      "timebox": "30 min",
+      "outcome": "A reusable audit video style that can be copied for medspas/dental/home services.",
+      "actions": [
+        "Use the Client Audit Generator checklist.",
+        "Keep it under 90 seconds.",
+        "End with: I built a quick preview if you want to see it."
+      ],
+      "proof": "Audit script and checklist live in Command Center."
+    },
+    {
+      "title": "Post today's Stratos content asset",
+      "owner": "Bradley",
+      "priority": "Audience growth",
+      "timebox": "20 min",
+      "outcome": "Ship one polished post from the V2 pack with a caption that speaks to outdated intake/follow-up.",
+      "actions": [
+        "Use the Instagram Dispatcher cron output if available.",
+        "Pair visual with a non-generic operator caption.",
+        "Invite businesses to DM 'front desk' for a quick audit."
+      ],
+      "proof": "Repurposing engine includes post, email, LinkedIn, X, and reel variants."
+    },
+    {
+      "title": "Add one demo case study to outbound",
+      "owner": "Hermes",
+      "priority": "Sales proof",
+      "timebox": "30 min",
+      "outcome": "Use transparent projected/demo case studies to explain value without fake client claims.",
+      "actions": [
+        "Pick medspa as the first demo case study.",
+        "Label projections clearly as examples.",
+        "Use before/after workflow language instead of fake metrics."
+      ],
+      "proof": "Case study templates are embedded and transparent."
+    }
+  ],
+  "offerLadder": [
+    {
+      "name": "Launch Site",
+      "price": "$3k setup",
+      "bestFor": "A local business with an outdated website that needs instant trust and conversion basics.",
+      "promise": "A premium, fast, mobile-first website that makes the business look current and easier to contact.",
+      "deliverables": ["5-page premium website", "Mobile-first service pages", "Lead form + click-to-call CTAs", "Google Business Profile CTA path", "Basic analytics handoff"],
+      "salesLine": "This is the trust rebuild: make the first impression match the quality of the service.",
+      "upsell": "Growth Site when they want capture, follow-up, and content systems."
+    },
+    {
+      "name": "Growth Site",
+      "price": "$5k setup + $750/mo",
+      "bestFor": "A business already getting traffic, DMs, calls, or referrals but leaking leads after the first click.",
+      "promise": "Website plus lead capture and follow-up so more interest turns into booked conversations.",
+      "deliverables": ["Conversion website", "Service-specific landing pages", "Lead magnet or quiz", "Email/SMS follow-up sequence", "Review request workflow", "Monthly content refresh queue"],
+      "salesLine": "This is where your site stops acting like a brochure and starts acting like a sales assistant.",
+      "upsell": "AI Front Desk when missed calls/intake are costing real money."
+    },
+    {
+      "name": "AI Front Desk",
+      "price": "$10k setup + $1.5k–$3k/mo",
+      "bestFor": "High-value businesses where one missed consult, emergency job, case, or new patient is expensive.",
+      "promise": "AI-assisted booking, intake, and follow-up that responds when staff is busy or the office is closed.",
+      "deliverables": ["Website conversion layer", "Missed-call text-back", "AI intake/qualification flow", "Appointment request routing", "Review/referral automation", "Owner dashboard and monthly optimization"],
+      "salesLine": "This is a front desk that never ignores a lead, even after hours.",
+      "upsell": "Command Center retainer for continuous optimization, campaigns, and automation expansion."
+    },
+    {
+      "name": "Command Center Retainer",
+      "price": "$2.5k–$5k/mo",
+      "bestFor": "Larger firms or ambitious local operators with multiple services, locations, or fragmented systems.",
+      "promise": "A monthly operating system for campaigns, automation, reporting, and conversion improvements.",
+      "deliverables": ["Monthly campaign buildout", "Automation maintenance", "Landing page iterations", "Lead source reporting", "Content repurposing", "Quarterly growth review"],
+      "salesLine": "We do not just launch the system — we keep sharpening the revenue machine.",
+      "upsell": "Custom integrations when they need CRM, EHR, practice management, or dispatch workflows connected."
+    }
+  ],
+  "outreachVault": {
+    "dmShort": "Saw a couple places {{business}} could capture more {{industry}} leads with a cleaner website + follow-up flow. I built a quick Stratos-style preview angle for businesses like yours — want me to send it?",
+    "emailFirstTouch": "Subject: Quick growth-system idea for {{business}}\n\nHey {{business}} team — I was looking at your online lead flow and noticed an opportunity: {{weakness}}.\n\nI run Stratos AI. We build premium websites plus AI booking, intake, missed-call recovery, and follow-up systems for local businesses. For {{business}}, the strongest angle looks like: {{angle}}\n\nI can send a short preview showing how I would improve the front door and follow-up path. If it is not useful, no worries.\n\n— Bradley\nStratos AI",
+    "followUps": [
+      "Quick follow-up — the idea is not just a new website. It is making sure every call, form fill, and after-hours lead gets routed into a follow-up path instead of dying in the inbox.",
+      "If helpful, I can send the 3 things I would fix first for {{business}}. No pitch deck — just the practical front-door improvements.",
+      "Last note from me: if you are already busy, this is usually where the money is — not more traffic, but fewer leads slipping through the cracks."
+    ],
+    "loomScript": "Quick one for {{business}} — I am going to show the first impression, the lead capture path, and where a prospect might hesitate. The main thing I would improve is {{weakness}}. Then I would add {{offer}} so the next lead has a clear path from interest to booked conversation.",
+    "phoneOpener": "Hey, this is Bradley with Stratos AI — I am local to Boca and had a quick website/intake idea for {{business}}. Not trying to sell you blind; I wanted to ask who handles your site and lead follow-up because I noticed one specific improvement that could help."
+  },
+  "medspaCampaign": {
+    "positioning": "Stratos AI helps medspas turn high-intent treatment interest into booked consults with premium treatment pages, AI consult capture, follow-up, reviews, and referral loops.",
+    "painSignals": ["High-ticket services buried behind generic navigation", "Instagram interest does not always become booked consults", "After-hours visitors have no concierge path", "Before/after proof is not structured into conversion journeys", "Follow-up depends too much on manual staff bandwidth"],
+    "hooks": ["Your next Botox or laser consult should not depend on someone calling during office hours.", "The website should feel as premium as the treatment room.", "Most medspa sites show services. Few guide visitors to the right consult.", "Aesthetic buyers need confidence, proof, and a frictionless next step."],
+    "firstTargets": ["Glamor Medical", "Better Me Medical Spa", "Elite Medical SPA", "Boca Med Spa"],
+    "demoOffer": "I can send a private preview of a medspa front door with treatment routing, consult capture, and review/referral automation."
+  },
+  "auditGenerator": {
+    "checks": [
+      {"area": "First impression", "question": "Does the hero immediately say who this is for, what they do, and what action to take?", "fix": "Rewrite hero around outcome, location, proof, and a single booking CTA."},
+      {"area": "Lead capture", "question": "Can a visitor request help in under 15 seconds on mobile?", "fix": "Add sticky CTA, short intake, click-to-call, and missed-call recovery path."},
+      {"area": "Service pages", "question": "Are high-value services explained with objections, proof, and next steps?", "fix": "Build service landing pages with FAQ, trust points, and booking prompts."},
+      {"area": "After-hours", "question": "What happens when someone is ready at 9:30 PM?", "fix": "Use AI concierge or text-back to capture interest and route next steps."},
+      {"area": "Follow-up", "question": "Does every form fill receive an immediate response and nurture sequence?", "fix": "Install SMS/email follow-up based on service intent and urgency."},
+      {"area": "Proof", "question": "Are reviews, before/after examples, and trust signals placed near decisions?", "fix": "Move proof into conversion sections instead of leaving it as passive decoration."}
+    ],
+    "summaryTemplate": "For {{business}}, I would focus on {{area}} first because {{weakness}}. The fastest win is {{fix}}."
+  },
+  "closeRoomTemplates": [
+    {"vertical": "Medspa", "headline": "Turn treatment interest into booked consults", "sections": ["Premium first impression", "Treatment recommender", "AI consult capture", "Before/after proof", "Review + referral loop"], "cta": "Approve the private preview and launch the consult capture path."},
+    {"vertical": "Dental", "headline": "Capture new patients before they call another office", "sections": ["New patient path", "Insurance/financing answers", "Missed-call text-back", "Specialty landing pages", "Review engine"], "cta": "Launch the new-patient capture system."},
+    {"vertical": "Home Services", "headline": "Recover emergency jobs before competitors answer", "sections": ["Emergency CTA", "Missed-call recovery", "Estimate request flow", "Maintenance plan nurture", "Local proof widgets"], "cta": "Install the job capture system."},
+    {"vertical": "Legal", "headline": "Make urgent case intake clearer and faster", "sections": ["Case-type routing", "Urgency capture", "Trust sequencing", "Follow-up workflow", "Consult request path"], "cta": "Launch the intake command room."}
+  ],
+  "demoGallery": [
+    {"vertical": "Medspa", "concept": "Premium consult concierge", "whatItFixes": "Visitors interested in high-ticket treatments need routing, trust, and follow-up.", "demoPath": "./demos/glamor-medical.html"},
+    {"vertical": "Dental", "concept": "New-patient capture engine", "whatItFixes": "Insurance, specials, missed calls, and appointment friction.", "demoPath": "./demos/dental-care-boca.html"},
+    {"vertical": "HVAC", "concept": "Emergency booking and maintenance funnel", "whatItFixes": "Late-night emergency demand and seasonal tune-up opportunities.", "demoPath": "./demos/mechanical-air.html"},
+    {"vertical": "Auto", "concept": "VIP quote and package selector", "whatItFixes": "Premium customers need concierge-level qualification before booking.", "demoPath": "./demos/ssf-detail.html"},
+    {"vertical": "Legal", "concept": "Urgent intake command", "whatItFixes": "Prospects need fast routing by case type, urgency, and trust signals.", "demoPath": "./demos/berman-law.html"}
+  ],
+  "repurposingEngine": [
+    {"source": "Instagram post", "linkedin": "Most local businesses do not need more software. They need their website, calls, forms, reviews, and follow-up to stop operating in separate rooms.", "x": "Your website should not be a brochure. It should be the front door to a follow-up system.", "emailHook": "The hidden leak is rarely traffic — it is what happens after the first click.", "reelPrompt": "Show a busy front desk missing calls, then switch to an AI follow-up system capturing the lead."},
+    {"source": "Medspa audit", "linkedin": "A premium medspa can lose trust when the digital experience feels less polished than the treatment room.", "x": "High-ticket treatments need high-trust digital paths.", "emailHook": "Your consult flow should feel as premium as your service menu.", "reelPrompt": "Walk through a medspa page and point out where consult intent should be captured."},
+    {"source": "AI Front Desk offer", "linkedin": "The best automation offer for local businesses is simple: respond faster, qualify better, and follow up every time.", "x": "AI for local businesses = fewer missed leads, not sci-fi dashboards.", "emailHook": "What happens to your leads after hours?", "reelPrompt": "Compare 'missed call at 8:47 PM' versus instant text-back and booking path."}
+  ],
+  "caseStudies": [
+    {"title": "Demo case study: Boca medspa consult capture", "label": "Transparent demo/projection, not a client result", "before": "Visitors browse treatments, compare options, then leave without a clear consult path.", "after": "A premium treatment funnel routes the visitor to a consult request, follow-up sequence, and review/referral loop.", "assets": ["Medspa demo page", "Private close room", "Outreach script", "Consult concierge concept"], "claimGuardrail": "Use projected workflow impact only; do not claim booked revenue until real client data exists."},
+    {"title": "Demo case study: Dental new-patient capture", "label": "Transparent demo/projection, not a client result", "before": "New patients have questions about insurance, specials, and availability but may not call immediately.", "after": "A new-patient funnel answers objections, captures intent, and triggers quick follow-up.", "assets": ["Dental demo page", "New-patient landing concept", "Missed-call script", "Review engine concept"], "claimGuardrail": "Frame as a system design example, not a performance claim."},
+    {"title": "Demo case study: Home service emergency recovery", "label": "Transparent demo/projection, not a client result", "before": "Emergency visitors call multiple providers; missed calls often mean lost jobs.", "after": "Emergency CTA, missed-call text-back, and quote intake keep the lead in motion.", "assets": ["HVAC/plumbing demo", "Emergency close room", "Text-back sequence", "Maintenance plan nurture"], "claimGuardrail": "Discuss response speed and workflow quality; avoid unsupported revenue guarantees."}
+  ]
+}
