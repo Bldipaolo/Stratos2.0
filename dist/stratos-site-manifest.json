@@ -1,11 +1,11 @@
 {
   "name": "Stratos AI Hermes Command Center",
-  "generatedAt": "2026-05-06T19:57:42",
+  "generatedAt": "2026-05-06T20:44:12",
   "entrypoints": [
     "index.html",
     "public-site/index.html"
   ],
-  "assetCount": 268,
+  "assetCount": 273,
   "assets": [
     ".gitignore",
     "DEPLOYMENT_CHECKLIST.md",
@@ -46,6 +46,7 @@
     "data/stratos_growth_system.json",
     "data/stratos_ops_library.json",
     "data/stratos_premium_ops.json",
+    "data/stratos_ruflo_system.json",
     "demos/berman-law.html",
     "demos/better-me.html",
     "demos/boca-dental.html",
@@ -251,6 +252,8 @@
     "pitch-kits/roto-rooter-boca-raton.md",
     "pitch-kits/ssf-detail.md",
     "public-site/index.html",
+    "ruflo/DAY_TO_DAY_PROCESS.md",
+    "ruflo/README.md",
     "scripts/build_pitch_kits.py",
     "scripts/build_public_site.py",
     "scripts/creative/download_higgsfield_results.py",
@@ -265,6 +268,8 @@
     "scripts/marketing/refine_instagram_v2.py",
     "scripts/ollama_draft.py",
     "scripts/ollama_health.py",
+    "scripts/ruflo_daily.py",
+    "scripts/ruflo_status.py",
     "scripts/run_all.py",
     "scripts/validate_dashboard.py",
     "styles.css",

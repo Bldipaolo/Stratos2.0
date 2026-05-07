@@ -1,0 +1,113 @@
+{
+  "source": {
+    "repo": "https://github.com/ruvnet/ruflo.git",
+    "localPath": "/Users/bradleydipaolo/stratos-ai/external/ruflo",
+    "head": "addb5cd3f30c4e9eef9b25084419bd1c5015e169",
+    "summary": "addb5cd3f fix(release): hotfix 3.7.0-alpha.11 \u2014 strip workspace: protocol leak (#1825) (#1827)",
+    "npmVersion": "ruflo v3.7.0-alpha.11",
+    "notes": [
+      "Cloned under /Users/bradleydipaolo/stratos-ai/external/ruflo, outside the Stratos repo to avoid committing the large upstream monorepo/binary artifacts.",
+      "Git clone produced case-collision warnings on macOS for duplicated SKILL.md/skill.md paths; upstream still cloned and can be inspected."
+    ]
+  },
+  "positioning": "Ruflo becomes the Stratos day-to-day orchestration layer for multi-agent operating routines: morning planning, build swarms, QA swarms, memory capture, and end-of-day handoff. Hermes/Codex still execute the work; Ruflo tracks, coordinates, routes, and stores patterns.",
+  "operatingRule": "Use Ruflo as the ledger/orchestrator, not as a magic builder. After any Ruflo command, Hermes/Codex must immediately continue doing the actual implementation, validation, and shipping.",
+  "dailyRhythm": [
+    {
+      "slot": "Morning setup",
+      "intent": "Plan the day and search prior patterns before building.",
+      "command": "python3 scripts/ruflo_daily.py morning",
+      "stratosAction": "Open Today Action Board, choose one revenue task, then move the target lead in CRM."
+    },
+    {
+      "slot": "Build sprint",
+      "intent": "Start a small hierarchical swarm for implementation/QA tracking.",
+      "command": "python3 scripts/ruflo_daily.py build --objective \"upgrade Stratos demo or automation\"",
+      "stratosAction": "Use Command Center module links: demos, pricing, proof, n8n, or ops."
+    },
+    {
+      "slot": "QA sprint",
+      "intent": "Spawn tester/reviewer coordination records before validation.",
+      "command": "python3 scripts/ruflo_daily.py qa --objective \"validate Stratos public export\"",
+      "stratosAction": "Run scripts/run_all.py, browser smoke, and proof guardrails."
+    },
+    {
+      "slot": "Memory closeout",
+      "intent": "Store what worked so future Stratos work repeats the pattern.",
+      "command": "python3 scripts/ruflo_daily.py close --note \"what shipped and what worked\"",
+      "stratosAction": "Update proof vault/briefing and commit only validated assets."
+    }
+  ],
+  "useCases": [
+    {
+      "name": "Premium demo build swarm",
+      "trigger": "New vertical/demo-site request",
+      "agents": [
+        "architect",
+        "coder",
+        "tester",
+        "reviewer"
+      ],
+      "output": "Data pack + deterministic generator + browser QA + public export"
+    },
+    {
+      "name": "Outbound/CRM execution swarm",
+      "trigger": "Daily lead push",
+      "agents": [
+        "researcher",
+        "coordinator",
+        "reviewer"
+      ],
+      "output": "Prioritized leads, pitch links, CRM statuses, follow-up queue"
+    },
+    {
+      "name": "Automation delivery swarm",
+      "trigger": "n8n or client fulfillment task",
+      "agents": [
+        "architect",
+        "coder",
+        "tester",
+        "security-architect"
+      ],
+      "output": "Workflow scope, credential checklist, QA checklist, proof ledger"
+    },
+    {
+      "name": "End-of-day learning loop",
+      "trigger": "After commit/push",
+      "agents": [
+        "coordinator"
+      ],
+      "output": "Pattern stored in Ruflo memory plus Stratos briefing update"
+    }
+  ],
+  "safeCommands": [
+    {
+      "label": "Check installed Ruflo version",
+      "cmd": "npx --yes ruflo@latest --version"
+    },
+    {
+      "label": "Ruflo status snapshot",
+      "cmd": "python3 scripts/ruflo_status.py"
+    },
+    {
+      "label": "Morning operating routine",
+      "cmd": "python3 scripts/ruflo_daily.py morning"
+    },
+    {
+      "label": "Build swarm record",
+      "cmd": "python3 scripts/ruflo_daily.py build --objective \"build the next Stratos growth asset\""
+    },
+    {
+      "label": "QA swarm record",
+      "cmd": "python3 scripts/ruflo_daily.py qa --objective \"validate Stratos command center export\""
+    },
+    {
+      "label": "Closeout memory note",
+      "cmd": "python3 scripts/ruflo_daily.py close --note \"validated and shipped Stratos update\""
+    },
+    {
+      "label": "Full Stratos validation after Ruflo-coordinated work",
+      "cmd": "python3 scripts/run_all.py"
+    }
+  ]
+}

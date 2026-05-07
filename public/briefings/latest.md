@@ -1,6 +1,6 @@
 # Stratos AI Morning Briefing
 
-Generated: 2026-05-06T19:57:42
+Generated: 2026-05-06T20:44:12
 
 ## Top targets
 1. **Glamor Medical** — Medspa · Score 92 · projected upside $4,725/mo

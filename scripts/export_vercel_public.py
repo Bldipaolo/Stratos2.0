@@ -26,6 +26,7 @@ INCLUDE_DIRS = [
     'marketing-assets/stratos-gpt2-premium-content-series',
     'n8n',
     'operations',
+    'ruflo',
     'vertical-demos',
     'marketing-assets/vertical-demo-sites',
 ]
