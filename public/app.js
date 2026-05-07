@@ -49,17 +49,46 @@ async function init(){
   $('#briefBtn').onclick=()=>{location.hash='briefing'; toast('Morning briefing generated from current lead board.')};
   $('#exportBtn').onclick=exportSnapshot;
 }
-function renderNav(){ $('#nav').innerHTML=MODULES.map(([id,num,name])=>`<button class="nav-btn" data-id="${id}"><span>${name}</span><small>${num}</small></button>`).join(''); document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id}); }
+function navCluster(id){
+  if(['strategy','intelligence','today','war','crm'].includes(id)) return 'Command';
+  if(['offers','outreach','medspa','audit','closeTemplates','pitch','workflow'].includes(id)) return 'Sales';
+  if(['demos','verticals','repurpose','cases','proof','portfolio','close','launch'].includes(id)) return 'Proof';
+  if(['revenue','pricing','briefing','n8n','ops','ruflo','swarmArena','usage'].includes(id)) return 'Ops';
+  return 'System';
+}
+function renderNav(){
+ const groups={}; MODULES.forEach(m=>{const g=navCluster(m[0]); (groups[g]=groups[g]||[]).push(m)});
+ $('#nav').innerHTML=Object.entries(groups).map(([group,mods])=>`<div class="nav-cluster"><div class="nav-label">${group}</div>${mods.map(([id,num,name])=>`<button class="nav-btn" data-id="${id}"><span>${name}</span><small>${num}</small></button>`).join('')}</div>`).join('');
+ document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id});
+}
 function route(id){state.active=id; document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id)); const mod=MODULES.find(m=>m[0]===id)||MODULES[0]; $('#pageTitle').textContent=mod[2]; ({strategy,intelligence,today,war,crm,offers,outreach,medspa,audit,closeTemplates,demos,verticals,repurpose,cases,pitch,workflow,revenue,pricing,briefing,proof,portfolio,close,launch,n8n,ops,ruflo,swarmArena,usage}[mod[0]]||strategy)();}
 function metrics(){const leads=state.leads, hot=leads.filter(l=>l.score>=88).length, pipe=leads.reduce((a,l)=>a+l.estBookings*l.avgValue,0); return `<div class="grid cols-4"><div class="card metric"><span>Total Leads</span><b>${leads.length}</b></div><div class="card metric"><span>Hot Leads 88+</span><b>${hot}</b></div><div class="card metric"><span>Projected Upside</span><b>${fmt(pipe)}</b></div><div class="card metric"><span>Execution Mode</span><b>Local-first</b></div></div>`}
 function leadOptions(){return state.leads.map(l=>`<option value="${l.id}">${esc(l.business)} · ${esc(l.industry)} · ${l.score}</option>`).join('')}
 function selectLead(id){state.selected=state.leads.find(l=>l.id===id)||state.leads[0]}
 function copy(cmd){navigator.clipboard&&navigator.clipboard.writeText(cmd); toast('Copied command')}
 function strategy(){
- const top=state.leads.slice().sort((a,b)=>b.score-a.score).slice(0,3);
- const ops=[['Absorb','Blueprint vault, live project state, lead data, proof, offers'],['Improve','Upgrade site/demo/close-room assets using deterministic generators'],['Integrate','Dashboard ⇄ website ⇄ demos ⇄ pitch kits ⇄ local AI ⇄ deploy prep'],['Test','Node/Python validators, browser smoke, Ollama health, manifest checks'],['Ship','Static/Vercel-ready package + local command center runbook']];
- const commands=[['Full rebuild/test','python3 scripts/run_all.py'],['n8n + ops library','open n8n/README.md operations/README.md'],['Public site only','python3 scripts/build_public_site.py'],['Close rooms','python3 scripts/generate_close_rooms.py'],['Morning briefing','python3 scripts/generate_morning_briefing.py'],['Deploy manifest','python3 scripts/deploy_prep.py'],['Local Hermes draft',`hermes -p stratos-local chat -t terminal,file -q "Using /Users/bradleydipaolo/stratos-ai/hermes-command-center, draft outreach for ${top[0].business} and save it under local-ai-drafts/."`]];
- $('#app').innerHTML=metrics()+`<section class="strategy-hero"><p class="eyebrow">Integrated agency operating system</p><h2>One hub for command center, public website, demos, pitch kits, close rooms, local AI, and deploy prep.</h2><p>The default path is local-first and script-first: use zero-model generators for repeatable production, local Ollama for rough content, and Codex only for premium architecture/final review.</p><div class="strategy-actions"><button onclick="location.hash='war'">Work leads</button><button onclick="location.hash='usage'">Open Usage Saver</button><a href="./public-site/index.html">Public website</a></div></section><div class="grid cols-5 ops-grid">${ops.map((o,i)=>`<div class="card ops-lane"><em>0${i+1}</em><h2>${o[0]}</h2><p class="muted">${o[1]}</p></div>`).join('')}</div><div class="split"><div class="card"><h2>Next three money moves</h2>${top.map((l,i)=>`<div class="proof-item"><div class="proof-dot"></div><div><b>${i+1}. ${esc(l.business)}</b><br><span class="muted">${esc(l.offer)} · ${fmt(l.estBookings*l.avgValue)}/mo upside · <a href="./close-rooms/${l.id}.html">close room</a></span></div></div>`).join('')}</div><div class="card"><h2>Full-system commands</h2><p class="muted">These wire command centers, websites, demos, briefings, and deploy assets together.</p>${commands.map(([label,cmd])=>`<div class="cmd-row"><div><b>${label}</b><code>${esc(cmd)}</code></div><button onclick="copy('${cmd.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div></div>`;
+ const top=state.leads.slice().sort((a,b)=>b.score-a.score).slice(0,4);
+ const total=state.leads.reduce((a,l)=>a+upside(l),0);
+ const hot=state.leads.filter(l=>l.score>=88).length;
+ const verticals=industryStats().slice(0,4);
+ const ops=[
+  ['Command','Decide what matters today','Strategy OS, Intelligence, Today board, War Room'],
+  ['Sell','Create targeted demand','Offers, outreach, audits, pitch packs, close templates'],
+  ['Prove','Show premium output','Demo sites, proof vault, portfolio, close rooms'],
+  ['Operate','Ship without chaos','Pricing, briefings, n8n, Ops, Ruflo, Usage Saver']
+ ];
+ const commands=[['Full system rebuild','python3 scripts/run_all.py'],['Launch Ruflo arena','python3 scripts/ruflo_arena.py mission --mode ambush --objective "48-hour Boca medspa revenue ambush" --run-ruflo'],['Morning Ruflo rhythm','python3 scripts/ruflo_daily.py morning'],['Generate briefing','python3 scripts/generate_morning_briefing.py'],['Validate dashboard','python3 scripts/validate_dashboard.py']];
+ $('#app').innerHTML=`<section class="revive-home">
+  <div class="revive-hero">
+    <div class="hero-orbit"><i></i><i></i><i></i><b>STRATOS</b></div>
+    <div class="hero-copy"><p class="eyebrow">Revitalized command center</p><h2>Premium agency cockpit for pipeline, proof, automation, and Ruflo-powered execution.</h2><p>The hub is now organized around four lanes: command the day, sell the offer, prove the work, and operate the machine. Less clutter. More signal. Same local-first, deploy-safe Stratos backbone.</p><div class="hero-actions"><button onclick="location.hash='war'">Enter War Room</button><button onclick="location.hash='swarmArena'">Launch Swarm Arena</button><a href="./ruflo/Swarm-Arena.html">Standalone arena</a></div></div>
+    <aside class="hero-control"><span>Live system</span><b>${fmt(total)}</b><small>Projected monthly opportunity from ${state.leads.length} current Boca-area targets.</small><div class="mini-ledger"><div><em>${hot}</em><span>Hot leads 88+</span></div><div><em>${state.automations.length}</em><span>Automation plays</span></div><div><em>${state.demoSystem.verticals.length}</em><span>Vertical demos</span></div></div></aside>
+  </div>
+  <div class="command-ribbon">${[['Today','today','Daily board'],['Pipeline','war','Priority leads'],['Ruflo','ruflo','Coordination'],['Arena','swarmArena','War game'],['Usage','usage','Quota defense']].map(x=>`<button onclick="location.hash='${x[1]}'"><span>${x[0]}</span><b>${x[2]}</b></button>`).join('')}</div>
+  <div class="ops-quadrants">${ops.map((o,i)=>`<article class="quadrant q${i+1}"><span>${String(i+1).padStart(2,'0')}</span><h2>${o[0]}</h2><p>${o[1]}</p><small>${o[2]}</small></article>`).join('')}</div>
+  <div class="mission-layout"><section class="card priority-stack"><div class="section-kicker">Next best moves</div><h2>Money board</h2>${top.map((l,i)=>`<article class="priority-row"><span>#${i+1}</span><div><b>${esc(l.business)}</b><p>${esc(l.industry)} · ${fmt(upside(l))}/mo upside · ${esc(l.angle)}</p></div><button onclick="selectLead('${l.id}'); location.hash='pitch'">Pitch</button></article>`).join('')}</section><section class="card vertical-stack-card"><div class="section-kicker">Market lanes</div><h2>Where to attack</h2>${verticals.map(v=>`<div class="vertical-meter"><div><b>${esc(v.name)}</b><span>${v.count} leads · avg score ${v.avg}</span></div><strong>${fmt(v.upside)}</strong></div>`).join('')}</section></div>
+  <div class="card command-deck"><div><p class="eyebrow">Copy-ready operator deck</p><h2>Run the machine</h2><p class="muted">Fast paths for rebuilds, Ruflo coordination, validation, and daily planning.</p></div>${commands.map(([label,cmd])=>`<div class="cmd-row"><div><b>${label}</b><code>${esc(cmd)}</code></div><button onclick="copy('${cmd.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div>
+ </section>`;
 }
 
 function intelligence(){

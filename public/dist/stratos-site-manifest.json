@@ -1,11 +1,11 @@
 {
   "name": "Stratos AI Hermes Command Center",
-  "generatedAt": "2026-05-06T20:51:17",
+  "generatedAt": "2026-05-07T13:05:53",
   "entrypoints": [
     "index.html",
     "public-site/index.html"
   ],
-  "assetCount": 287,
+  "assetCount": 289,
   "assets": [
     ".claude-flow/agents/store.json",
     ".claude-flow/metrics/swarm-activity.json",
@@ -33,6 +33,7 @@
     "app.js",
     "briefings/briefing-20260505.md",
     "briefings/briefing-20260506.md",
+    "briefings/briefing-20260507.md",
     "briefings/latest.md",
     "close-rooms/berman-law.html",
     "close-rooms/better-me-medical-spa.html",
@@ -264,6 +265,7 @@
     "ruflo/DAY_TO_DAY_PROCESS.md",
     "ruflo/README.md",
     "ruflo/SWARM_ARENA.md",
+    "ruflo/Swarm-Arena.html",
     "ruflo/missions/latest.json",
     "ruflo/missions/ruflo-ambush-20260506-205051.json",
     "ruvector.db",
