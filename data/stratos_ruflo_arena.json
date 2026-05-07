@@ -1,0 +1,130 @@
+{
+  "name": "Ruflo Swarm Arena",
+  "tagline": "A live-feeling AI agency war game where Ruflo coordinates specialized Stratos agents and Hermes executes the revenue move.",
+  "truthLabel": "Interactive command-center prototype. Ruflo coordination is real when scripts are run with --run; in-browser agent output is deterministic/simulated unless exported from script logs.",
+  "defaultObjective": "Build a 48-hour Boca Raton medspa revenue ambush: lead list, demo page, n8n intake automation, proof-safe close room, and follow-up sequence.",
+  "modes": [
+    {
+      "id": "ambush",
+      "name": "Revenue Ambush",
+      "objective": "Pick one vertical and generate a 48-hour offer/demo/outreach strike plan.",
+      "accent": "#8ff0c1"
+    },
+    {
+      "id": "factory",
+      "name": "Demo Factory",
+      "objective": "Spin up a premium vertical demo kit with proof-safe claims and launch assets.",
+      "accent": "#00aeef"
+    },
+    {
+      "id": "ops",
+      "name": "Fulfillment Ops",
+      "objective": "Turn a sold client into scope, QA gates, automation map, and closeout proof.",
+      "accent": "#f7c873"
+    },
+    {
+      "id": "blackout",
+      "name": "Blackout Sprint",
+      "objective": "Conserve premium usage by routing ideation to local/Ollama and validation to deterministic scripts.",
+      "accent": "#d68cff"
+    }
+  ],
+  "agents": [
+    {
+      "type": "coordinator",
+      "name": "Queen Coordinator",
+      "role": "Keeps the mission coherent and writes the final execution order.",
+      "ruflo": "agent spawn -t coordinator",
+      "output": "One objective, one owner, one next irreversible move."
+    },
+    {
+      "type": "researcher",
+      "name": "Boca Signal Hunter",
+      "role": "Finds the market wedge and what the local business likely needs now.",
+      "ruflo": "agent spawn -t researcher",
+      "output": "Prospect angle, vertical pain, and urgency hook."
+    },
+    {
+      "type": "architect",
+      "name": "Offer Architect",
+      "role": "Shapes demo, automation, and close-room assets into one sellable package.",
+      "ruflo": "agent spawn -t architect",
+      "output": "Scope ladder, asset map, and delivery path."
+    },
+    {
+      "type": "coder",
+      "name": "Hermes Builder",
+      "role": "Builds the actual static assets, scripts, exports, and dashboards.",
+      "ruflo": "agent spawn -t coder",
+      "output": "Files changed, generators run, public export updated."
+    },
+    {
+      "type": "tester",
+      "name": "Proof Tester",
+      "role": "Runs deterministic checks and hunts broken pages, claims, and exports.",
+      "ruflo": "agent spawn -t tester",
+      "output": "Validation report and browser QA notes."
+    },
+    {
+      "type": "reviewer",
+      "name": "Close Reviewer",
+      "role": "Converts outputs into client-safe language and next-step close copy.",
+      "ruflo": "agent spawn -t reviewer",
+      "output": "Pitch bullets, proof labels, and follow-up sequence."
+    }
+  ],
+  "phases": [
+    {
+      "name": "Ignition",
+      "time": "00:00",
+      "actions": [
+        "Search Ruflo memory for Stratos patterns",
+        "Initialize hierarchical swarm",
+        "Lock objective and success gate"
+      ]
+    },
+    {
+      "name": "Recon",
+      "time": "00:08",
+      "actions": [
+        "Choose vertical wedge",
+        "Draft pain-to-offer map",
+        "Select existing demo/proof assets"
+      ]
+    },
+    {
+      "name": "Build",
+      "time": "00:22",
+      "actions": [
+        "Generate/modify data pack",
+        "Wire dashboard module",
+        "Export public assets"
+      ]
+    },
+    {
+      "name": "QA",
+      "time": "00:37",
+      "actions": [
+        "Run node checks",
+        "Run Python validator",
+        "Browser-check route and console"
+      ]
+    },
+    {
+      "name": "Closeout",
+      "time": "00:48",
+      "actions": [
+        "Store Ruflo memory note",
+        "Create client-facing action list",
+        "Commit and push"
+      ]
+    }
+  ],
+  "commandDeck": [
+    "python3 scripts/ruflo_arena.py mission --mode ambush --objective \"48-hour Boca medspa revenue ambush\"",
+    "python3 scripts/ruflo_arena.py mission --mode factory --objective \"launch one new vertical demo kit\"",
+    "python3 scripts/ruflo_arena.py mission --mode blackout --objective \"ship without burning premium model calls\"",
+    "python3 scripts/ruflo_arena.py mission --mode ambush --objective \"48-hour Boca medspa revenue ambush\" --run-ruflo",
+    "python3 scripts/run_all.py"
+  ]
+}

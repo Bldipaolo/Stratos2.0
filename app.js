@@ -25,9 +25,10 @@ const MODULES = [
   ['n8n','19','n8n Automation Library'],
   ['ops','20','Ops Logistics'],
   ['ruflo','21','Ruflo Orchestration'],
+  ['swarmArena','21X','Swarm Arena'],
   ['usage','∞','Usage Saver']
 ];
-const state={leads:[], automations:[], growth:null, premium:null, ops:null, demoSystem:null, ruflo:null, crm:{}, active:'strategy', selected:null};
+const state={leads:[], automations:[], growth:null, premium:null, ops:null, demoSystem:null, ruflo:null, rufloArena:null, crm:{}, active:'strategy', selected:null};
 const $=s=>document.querySelector(s);
 const fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n||0);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -40,6 +41,7 @@ async function init(){
   state.ops=await fetch('./data/stratos_ops_library.json').then(r=>r.json());
   state.demoSystem=await fetch('./data/stratos_demo_site_system.json').then(r=>r.json());
   state.ruflo=await fetch('./data/stratos_ruflo_system.json').then(r=>r.json());
+  state.rufloArena=await fetch('./data/stratos_ruflo_arena.json').then(r=>r.json());
   state.crm=loadCrm();
   state.selected=state.leads.slice().sort((a,b)=>b.score-a.score)[0];
   renderNav(); route(location.hash.replace('#','')||'strategy');
@@ -48,7 +50,7 @@ async function init(){
   $('#exportBtn').onclick=exportSnapshot;
 }
 function renderNav(){ $('#nav').innerHTML=MODULES.map(([id,num,name])=>`<button class="nav-btn" data-id="${id}"><span>${name}</span><small>${num}</small></button>`).join(''); document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>{location.hash=b.dataset.id}); }
-function route(id){state.active=id; document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id)); const mod=MODULES.find(m=>m[0]===id)||MODULES[0]; $('#pageTitle').textContent=mod[2]; ({strategy,intelligence,today,war,crm,offers,outreach,medspa,audit,closeTemplates,demos,verticals,repurpose,cases,pitch,workflow,revenue,pricing,briefing,proof,portfolio,close,launch,n8n,ops,ruflo,usage}[mod[0]]||strategy)();}
+function route(id){state.active=id; document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id)); const mod=MODULES.find(m=>m[0]===id)||MODULES[0]; $('#pageTitle').textContent=mod[2]; ({strategy,intelligence,today,war,crm,offers,outreach,medspa,audit,closeTemplates,demos,verticals,repurpose,cases,pitch,workflow,revenue,pricing,briefing,proof,portfolio,close,launch,n8n,ops,ruflo,swarmArena,usage}[mod[0]]||strategy)();}
 function metrics(){const leads=state.leads, hot=leads.filter(l=>l.score>=88).length, pipe=leads.reduce((a,l)=>a+l.estBookings*l.avgValue,0); return `<div class="grid cols-4"><div class="card metric"><span>Total Leads</span><b>${leads.length}</b></div><div class="card metric"><span>Hot Leads 88+</span><b>${hot}</b></div><div class="card metric"><span>Projected Upside</span><b>${fmt(pipe)}</b></div><div class="card metric"><span>Execution Mode</span><b>Local-first</b></div></div>`}
 function leadOptions(){return state.leads.map(l=>`<option value="${l.id}">${esc(l.business)} · ${esc(l.industry)} · ${l.score}</option>`).join('')}
 function selectLead(id){state.selected=state.leads.find(l=>l.id===id)||state.leads[0]}
@@ -199,6 +201,17 @@ function ops(){
 function ruflo(){
  const r=state.ruflo;
  $('#app').innerHTML=sectionIntro('Ruflo orchestration layer','Ruflo is now wired into Stratos day-to-day execution as the coordination ledger.','Use it to search patterns, start swarms, spawn agent records, and store closeout memory — then Hermes/Codex immediately does the actual build, QA, and shipping work.',`<a class="inline-link" href="./ruflo/README.md">Ruflo README</a><a class="inline-link" href="./ruflo/DAY_TO_DAY_PROCESS.md">Day-to-day process</a>`)+`<section class="ruflo-hero"><div><p class="eyebrow">Cloned source</p><h2>${esc(r.source.summary)}</h2><p>${esc(r.positioning)}</p><div class="source-card"><b>Local clone</b><code>${esc(r.source.localPath)}</code><small>${esc(r.source.notes.join(' '))}</small></div></div><aside><span>Operating rule</span><b>Coordinate, then execute.</b><p>${esc(r.operatingRule)}</p><button onclick="copy('python3 scripts/ruflo_status.py')">Copy status command</button></aside></section><div class="section-title"><h2>Daily Stratos rhythm</h2><p>These routines turn Ruflo into the recurring operating cadence for pipeline, builds, QA, and learning.</p></div><div class="ruflo-rhythm">${r.dailyRhythm.map((d,i)=>`<article class="ruflo-step"><span>${String(i+1).padStart(2,'0')}</span><div><p class="eyebrow">${esc(d.slot)}</p><h2>${esc(d.intent)}</h2><p>${esc(d.stratosAction)}</p><div class="cmd-row"><div><b>Command</b><code>${esc(d.command)}</code></div><button onclick="copy('${d.command.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div></div></article>`).join('')}</div><div class="split premium-split"><div class="card"><h2>Use-case swarms</h2>${r.useCases.map(u=>`<div class="ruflo-case"><b>${esc(u.name)}</b><p>${esc(u.trigger)}</p><div class="node-list">${u.agents.map(a=>`<span>${esc(a)}</span>`).join('')}</div><small>${esc(u.output)}</small></div>`).join('')}</div><div class="card"><h2>Safe command deck</h2><p class="muted">These are copy-ready and keep Ruflo as coordination while Stratos scripts do deterministic production.</p>${r.safeCommands.map(row=>`<div class="cmd-row"><div><b>${esc(row.label)}</b><code>${esc(row.cmd)}</code></div><button onclick="copy('${row.cmd.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div></div>`;
+}
+
+
+function swarmArena(){
+ const a=state.rufloArena;
+ const modes=a.modes.map(m=>`<button class="arena-mode" data-mode="${m.id}" style="--mode:${m.accent}"><b>${esc(m.name)}</b><span>${esc(m.objective)}</span></button>`).join('');
+ $('#app').innerHTML=sectionIntro('Ruflo Swarm Arena','A crazy interactive agency war game: pick a mission, launch a specialized Ruflo swarm, then convert the choreography into real Stratos execution.','The browser animation is deterministic and proof-labeled. The matching CLI can register real Ruflo coordination records with --run-ruflo.',`<a class="inline-link" href="./ruflo/SWARM_ARENA.md">Arena docs</a><button onclick="copy('python3 scripts/ruflo_arena.py mission --mode ambush --objective &quot;48-hour Boca medspa revenue ambush&quot; --run-ruflo')">Copy live Ruflo mission</button>`)+`<section class="arena-stage"><div class="arena-copy"><p class="eyebrow">${esc(a.truthLabel)}</p><h2>${esc(a.tagline)}</h2><textarea id="arenaObjective">${esc(a.defaultObjective)}</textarea><div class="arena-actions"><button id="launchArena">Launch simulated swarm</button><button onclick="copy(document.getElementById('arenaObjective').value)">Copy objective</button></div></div><div class="arena-orb" aria-label="animated swarm orb"><i></i><i></i><i></i><b>RUFLO</b></div></section><div class="arena-modes">${modes}</div><div class="arena-grid"><section class="card arena-agents"><h2>Agent swarm</h2><div id="arenaAgents">${a.agents.map((ag,i)=>`<article class="agent-pod" style="--delay:${i*80}ms"><p class="eyebrow">${esc(ag.type)}</p><h3>${esc(ag.name)}</h3><p>${esc(ag.role)}</p><small>${esc(ag.output)}</small></article>`).join('')}</div></section><section class="card arena-feed"><h2>Live mission feed</h2><div id="arenaFeed"></div></section></div><div class="section-title"><h2>Mission timeline</h2><p>Each phase maps Ruflo coordination to a real Stratos work product.</p></div><div class="arena-phases">${a.phases.map(p=>`<article><span>${esc(p.time)}</span><h3>${esc(p.name)}</h3>${p.actions.map(x=>`<p>${esc(x)}</p>`).join('')}</article>`).join('')}</div><div class="card"><h2>Command deck</h2>${a.commandDeck.map(c=>`<div class="cmd-row"><div><b>Copy-ready</b><code>${esc(c)}</code></div><button onclick="copy('${c.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Copy</button></div>`).join('')}</div>`;
+ const feed=$('#arenaFeed'); const objective=$('#arenaObjective'); let active=a.modes[0];
+ document.querySelectorAll('.arena-mode').forEach(btn=>btn.onclick=()=>{active=a.modes.find(m=>m.id===btn.dataset.mode)||a.modes[0]; document.documentElement.style.setProperty('--arena-accent', active.accent); document.querySelectorAll('.arena-mode').forEach(b=>b.classList.toggle('active',b===btn)); btn.classList.add('active');});
+ document.querySelector('.arena-mode')?.click();
+ $('#launchArena').onclick=()=>{ const lines=[`Mission mode: ${active.name}`,`Objective locked: ${objective.value}`, 'Ruflo memory search queued', 'Hierarchical swarm initialized', ...a.agents.map(ag=>`${ag.name}: ${ag.output}`), 'Execution order: Hermes/Codex now builds, validates, commits, and pushes', 'Truth label: simulated in-browser until CLI --run-ruflo is executed']; feed.innerHTML=''; lines.forEach((line,i)=>setTimeout(()=>{feed.innerHTML+=`<p><span>${String(i+1).padStart(2,'0')}</span>${esc(line)}</p>`; feed.scrollTop=feed.scrollHeight;},i*180)); document.querySelectorAll('.agent-pod').forEach((pod,i)=>setTimeout(()=>pod.classList.add('hot'),i*110)); };
 }
 
 function usage(){
